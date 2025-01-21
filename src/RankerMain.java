@@ -1,3 +1,4 @@
+import RankerGUI.Window;
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.URL;
@@ -10,12 +11,12 @@ public class RankerMain {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+        new Window();
+
         userID = getInput();
         inputXML();
         if (Game.getGameList().isEmpty())
             throw new RuntimeException("Game list is empty, error has occurred.");
-
-        printListSteamFormatted();
     }
 
     /// Gets a SteamID64 from the user via the terminal.
