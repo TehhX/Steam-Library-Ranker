@@ -1,20 +1,18 @@
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.URL;
-import java.util.*;
+import java.util.Scanner;
 
 public class RankerMain {
     /// The Steam64 ID provided by the user.
     static String userID;
-    /// The master array list of game name to ID associations.
-    static ArrayList<Game> gameList = new ArrayList<>();
     /// The scanner object to take user input from the terminal.
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         userID = getInput();
         inputXML();
-        if (gameList.isEmpty())
+        if (Game.getGameList().isEmpty())
             throw new RuntimeException("Game list is empty, error has occurred.");
 
         printListSteamFormatted();
@@ -61,7 +59,7 @@ public class RankerMain {
         if (!areBothElements(name, id))
             return;
 
-        gameList.add(new Game(name.getTextContent(), Integer.parseInt(id.getTextContent())));
+        new Game(name.getTextContent(), Integer.parseInt(id.getTextContent()));
     }
 
     /// Checks to see if the two passed nodes are both elements, returns result.
@@ -72,24 +70,24 @@ public class RankerMain {
 
     /// Prints the list of games in order to terminal with the formatting Steam uses for profile text.
     private static void printListSteamFormatted() {
-        for (int i = 0; i < gameList.size(); i++)
+        for (int i = 0; i < Game.getGameList().size(); i++)
             System.out.println(
                 i + 1 +
                 ": [url=https://store.steampowered.com/app/" +
-                gameList.get(i).getID() +
+                Game.getGameList().get(i).getID() +
                 "] " +
-                gameList.get(i).getName() +
+                Game.getGameList().get(i).getName() +
                 " [/url]"
             );
     }
 
     /// Prints a human-readable list of games.
     private static void printListUnformatted() {
-        for (int i = 0; i < gameList.size(); i++)
+        for (int i = 0; i < Game.getGameList().size(); i++)
             System.out.println(
                 i + 1 +
                 ": " +
-                gameList.get(i).getName()
+                Game.getGameList().get(i).getName()
             );
     }
 }
