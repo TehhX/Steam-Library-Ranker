@@ -13,7 +13,6 @@ public class RankerMain {
 
     public static void main(String[] args) {
         userID = getInput();
-
         inputXML();
         if (gameList.isEmpty())
             throw new RuntimeException("Game list is empty, error has occurred.");
@@ -26,6 +25,7 @@ public class RankerMain {
         System.out.print("Enter a SteamID: ");
         String input = sc.nextLine().trim();
 
+        // 17 is the character length for a SteamID64
         if (input.length() != 17) {
             System.out.println("Not an acceptable SteamID64. Custom URLs are not yet supported.");
             return getInput();
