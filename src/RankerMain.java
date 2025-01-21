@@ -1,61 +1,72 @@
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.*;
 
 public class RankerMain {
+    /// The Steam64 ID provided by the user.
     static String userID;
+    /// The master array list of game name to ID associations.
     static ArrayList<Game> gameList = new ArrayList<>();
+    /// The scanner object to take user input from the terminal.
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        userID = args[0];
+        userID = getInput();
 
-        try {
-            inputXML();
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        inputXML();
+        if (gameList.isEmpty())
+            throw new RuntimeException("Game list is empty, error has occurred.");
         for (Game ind : gameList)
             System.out.println(ind);
     }
 
-    private static void inputXML() throws Exception {
-        // Download and create the XML document from the Steam API in memory and normalize it
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new URL(
-            "https://steamcommunity.com/profiles/" + userID + "/games?tab=all&xml=1").openStream()
-        );
-        document.getDocumentElement().normalize();
+    /// Gets a SteamID64 from the user via the terminal.
+    private static String getInput() {
+        System.out.print("Enter a SteamID: ");
+        String input = sc.nextLine().trim();
 
-        // Get the appropriate parent nodes
-        final NodeList namesList = document.getElementsByTagName("name");
-        final NodeList idList = document.getElementsByTagName("appID");
-
-        for (int i = 0; i < namesList.getLength(); i++) {
-            // Gets sub-nodes with name and ID
-            final Node nameNode = namesList.item(i);
-            final Node idNode = idList.item(i);
-
-            if (areBothElements(nameNode, idNode)) {
-                // Create elements from the nodes
-                Element nameElement = (Element) nameNode;
-                Element idElement = (Element) idNode;
-
-                // Get their values
-                String name = nameElement.getTextContent();
-                int id = Integer.parseInt(idElement.getTextContent());
-
-                // Add a new game object to the master list with these values
-                gameList.add(new Game(name, id));
-            }
+        if (input.length() != 17) {
+            System.out.println("Not an acceptable SteamID64. Custom URLs are not yet supported.");
+            return getInput();
         }
+
+        return input;
     }
 
+    /// Downloads the XML into memory, creates the appropriate Nodes/Node Lists for use with addGameObject().
+    private static void inputXML() {
+        Document document;
+        try {
+            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new URL(
+                "https://steamcommunity.com/profiles/" + userID + "/games?tab=all&xml=1").openStream()
+            );
+            document.getDocumentElement().normalize();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        final NodeList namesList = document.getElementsByTagName("name");
+        final NodeList idList = document.getElementsByTagName("appID");
+        final int lastIndex = Math.min(namesList.getLength(), idList.getLength());
+
+        for (int i = 0; i < lastIndex; i++)
+            addGameObject(namesList, idList, i);
+    }
+
+    /// Takes a name and ID node, makes an object of class Game with both data and adds it to the master list.
+    private static void addGameObject(NodeList names, NodeList ids, int i) {
+        final Node name = names.item(i);
+        final Node id = ids.item(i);
+        if (!areBothElements(name, id))
+            return;
+
+        gameList.add(new Game(name.getTextContent(), Integer.parseInt(id.getTextContent())));
+    }
+
+    /// Checks to see if the two passed nodes are both elements, returns result.
     private static boolean areBothElements(Node n1, Node n2) {
-        return n1.getNodeType() == Node.ELEMENT_NODE && n2.getNodeType() == Node.ELEMENT_NODE;
+        return n1.getNodeType() == Node.ELEMENT_NODE &&
+               n2.getNodeType() == Node.ELEMENT_NODE;
     }
 }
