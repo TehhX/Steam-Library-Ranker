@@ -35,6 +35,7 @@ public class RankerMain {
     /// Downloads the XML into memory, creates the appropriate Nodes/Node Lists for use with addGameObject().
     private static void inputXML() {
         Document document;
+
         try {
             document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new URL(
                 "https://steamcommunity.com/profiles/" + userID + "/games?tab=all&xml=1").openStream()
@@ -44,6 +45,7 @@ public class RankerMain {
         catch (Exception e) {
             throw new RuntimeException(e);
         }
+
         final NodeList namesList = document.getElementsByTagName("name");
         final NodeList idList = document.getElementsByTagName("appID");
 
@@ -56,6 +58,7 @@ public class RankerMain {
     private static void addGameObject(NodeList names, NodeList ids, int i) {
         final Node name = names.item(i);
         final Node id = ids.item(i);
+
         if (!areBothElements(name, id))
             return;
 
