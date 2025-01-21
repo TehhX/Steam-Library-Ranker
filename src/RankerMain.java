@@ -48,8 +48,8 @@ public class RankerMain {
         }
         final NodeList namesList = document.getElementsByTagName("name");
         final NodeList idList = document.getElementsByTagName("appID");
-        final int lastIndex = Math.min(namesList.getLength(), idList.getLength());
 
+        final int lastIndex = Math.min(namesList.getLength(), idList.getLength());
         for (int i = 0; i < lastIndex; i++)
             addGameObject(namesList, idList, i);
     }
