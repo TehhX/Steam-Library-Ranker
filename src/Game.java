@@ -1,14 +1,14 @@
 class Game {
-    private int score = 0;
-    private final int gameID;
     private final String gameName;
+    private final int gameID;
 
-    public Game(final int gameID, final String gameName) {
-        this.gameID = gameID;
+    public Game(final String gameName, final int gameID) {
         this.gameName = gameName;
+        this.gameID = gameID;
     }
 
-    public void incrementScore() {
-        score++;
+    @Override
+    public String toString() {
+        return gameName + ": " + gameID;
     }
 }
