@@ -16,8 +16,8 @@ public class RankerMain {
         inputXML();
         if (gameList.isEmpty())
             throw new RuntimeException("Game list is empty, error has occurred.");
-        for (Game ind : gameList)
-            System.out.println(ind);
+
+        printListSteamFormatted();
     }
 
     /// Gets a SteamID64 from the user via the terminal.
@@ -68,5 +68,28 @@ public class RankerMain {
     private static boolean areBothElements(Node n1, Node n2) {
         return n1.getNodeType() == Node.ELEMENT_NODE &&
                n2.getNodeType() == Node.ELEMENT_NODE;
+    }
+
+    /// Prints the list of games in order to terminal with the formatting Steam uses for profile text.
+    private static void printListSteamFormatted() {
+        for (int i = 0; i < gameList.size(); i++)
+            System.out.println(
+                i + 1 +
+                ": [url=https://store.steampowered.com/app/" +
+                gameList.get(i).getID() +
+                "] " +
+                gameList.get(i).getName() +
+                " [/url]"
+            );
+    }
+
+    /// Prints a human-readable list of games.
+    private static void printListUnformatted() {
+        for (int i = 0; i < gameList.size(); i++)
+            System.out.println(
+                i + 1 +
+                ": " +
+                gameList.get(i).getName()
+            );
     }
 }

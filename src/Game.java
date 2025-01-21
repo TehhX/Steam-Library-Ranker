@@ -7,8 +7,11 @@ class Game {
         this.gameID = gameID;
     }
 
-    @Override
-    public String toString() {
-        return gameName + ": " + gameID;
+    public String getName() {
+        return gameName;
+    }
+
+    public int getID() {
+        return gameID;
     }
 }
