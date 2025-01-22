@@ -35,7 +35,7 @@ public class Window extends JFrame {
         setSize(FRAME_SIZE_X, FRAME_SIZE_Y);
         setLocationRelativeTo(null);
         setResizable(false);
-        setIconImage(null); // TODO: Change icon images
+        setIconImage(null); // TODO: Change icon image
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }

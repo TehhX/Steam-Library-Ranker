@@ -16,4 +16,8 @@ class GameData {
     public int getID() {
         return gameID;
     }
+
+    public String getStorePage() {
+        return "https://store.steampowered.com/app/" + gameID;
+    }
 }

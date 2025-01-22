@@ -2,3 +2,4 @@ out/
 .idea/
 patch notes.txt
 *.xml
+*.iml
