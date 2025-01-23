@@ -1,4 +1,4 @@
-package RankerGUI;
+package Ranker.GUI;
 
 import javax.swing.*;
 

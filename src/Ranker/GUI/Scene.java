@@ -1,4 +1,4 @@
-package RankerGUI;
+package Ranker.GUI;
 
 abstract public class Scene extends Panel {
     public Scene(final boolean opaque) {

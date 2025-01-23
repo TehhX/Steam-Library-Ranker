@@ -1,18 +1,18 @@
-package RankerGUI.Scenes;
+package Ranker.GUI.Scenes;
 
-import RankerGUI.Scene;
+import Ranker.GUI.Scene;
 
-public class Output extends Scene {
-    public Output() {
+public class Rank extends Scene {
+    public Rank() {
         super(true);
-
-        
     }
 
+    @Override
     public void addScene() {
         setVisible(true);
     }
 
+    @Override
     public void removeScene() {
         setVisible(false);
     }

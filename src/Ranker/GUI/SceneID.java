@@ -1,4 +1,4 @@
-package RankerGUI;
+package Ranker.GUI;
 
 public enum SceneID {
     Input,

@@ -1,6 +1,7 @@
-package RankerGUI;
+package Ranker.GUI;
 
-import RankerGUI.Scenes.*;
+import Ranker.Data.*;
+import Ranker.GUI.Scenes.*;
 import javax.swing.*;
 
 public class Window extends JFrame {

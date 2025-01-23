@@ -1,17 +1,13 @@
-package Data;
+package Ranker.Data;
 
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.URL;
-import java.util.ArrayList;
 
-class DataIntake {
-    /// Master array of GameData objects
-    static ArrayList<GameData> gameDataList = new ArrayList<>();
-
+public class Intake {
     /// Downloads the XML into memory, creates the appropriate Nodes/Node Lists for use with addGameObject().
     public static void inputXML(final String userID) {
-        gameDataList.clear();
+        GameList.clear();
 
         Document document;
 
@@ -34,20 +30,13 @@ class DataIntake {
             Node id = idList.item(i);
 
             if (areBothElements(name, id))
-                gameDataList.add(new GameData(
-                    name.getTextContent(),
-                    Integer.parseInt(id.getTextContent())
-                ));
+                GameList.add(name.getTextContent(), Integer.parseInt(id.getTextContent()));
         }
     }
 
     /// Checks to see if the two passed nodes are both elements, returns result.
     private static boolean areBothElements(Node n1, Node n2) {
         return n1.getNodeType() == Node.ELEMENT_NODE &&
-            n2.getNodeType() == Node.ELEMENT_NODE;
-    }
-
-    public static int getRankOf(GameData gameObject) {
-        return gameDataList.indexOf(gameObject);
+               n2.getNodeType() == Node.ELEMENT_NODE;
     }
 }

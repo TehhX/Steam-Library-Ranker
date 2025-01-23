@@ -1,7 +1,6 @@
-package RankerGUI.Scenes;
+package Ranker.GUI.Scenes;
 
-import RankerGUI.Scene;
-
+import Ranker.GUI.Scene;
 import javax.swing.*;
 import java.awt.*;
 
@@ -23,11 +22,13 @@ public class Input extends Scene {
         add(inputField);
     }
 
+    @Override
     public void addScene() {
         setVisible(true);
         inputField.requestFocusInWindow();
     }
 
+    @Override
     public void removeScene() {
         setVisible(false);
     }
