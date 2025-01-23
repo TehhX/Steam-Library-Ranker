@@ -16,4 +16,9 @@ class Game {
     int getID() {
         return gameID;
     }
+
+    @Override
+    public String toString() {
+        return gameName + ": " + gameID;
+    }
 }

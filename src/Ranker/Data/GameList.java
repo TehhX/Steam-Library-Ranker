@@ -28,4 +28,26 @@ public class GameList {
 
         throw new RuntimeException("Cannot retrieve rank of gameID " + id + ": game does not exist.");
     }
+
+    public static String getListPlain() {
+        String toReturn = "";
+
+        for (Game game : array)
+            toReturn += game + "\n";
+
+        return toReturn;
+    }
+
+    public static String getListHTML() {
+        String toReturn = "<html>";
+
+        for (Game game : array)
+            toReturn += game + "<br>\n";
+
+        return toReturn + "</html>";
+    }
+
+    public static String getListSteam() {
+        return "Not yet implemented."; // TODO: Implement.
+    }
 }

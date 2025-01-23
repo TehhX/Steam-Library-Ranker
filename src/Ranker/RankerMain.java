@@ -1,6 +1,6 @@
 package Ranker;
 
-import Ranker.GUI.Window;
+import Ranker.GUI.*;
 
 public class RankerMain {
     public static void main(String[] args) {

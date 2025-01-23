@@ -1,12 +1,14 @@
 package Ranker.Data;
 
+import Ranker.GUI.SceneID;
+import Ranker.GUI.Window;
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.URL;
 
 public class Intake {
     /// Downloads the XML into memory, creates the appropriate Nodes/Node Lists for use with addGameObject().
-    public static void inputXML(final String userID) {
+    public static int inputXML(final String userID) {
         GameList.clear();
 
         Document document;
@@ -21,6 +23,9 @@ public class Intake {
             throw new RuntimeException(e);
         }
 
+        if (document.getElementsByTagName("error").getLength() != 0)
+            return 1;
+
         final NodeList namesList = document.getElementsByTagName("name");
         final NodeList idList = document.getElementsByTagName("appID");
 
@@ -32,6 +37,8 @@ public class Intake {
             if (areBothElements(name, id))
                 GameList.add(name.getTextContent(), Integer.parseInt(id.getTextContent()));
         }
+
+        return 0;
     }
 
     /// Checks to see if the two passed nodes are both elements, returns result.
