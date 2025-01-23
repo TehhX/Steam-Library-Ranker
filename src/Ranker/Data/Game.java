@@ -19,6 +19,6 @@ class Game {
 
     @Override
     public String toString() {
-        return gameName + ": " + gameID;
+        return "[" + gameName + ", " + gameID + "]";
     }
 }

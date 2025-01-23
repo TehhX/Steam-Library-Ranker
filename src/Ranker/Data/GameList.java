@@ -29,11 +29,13 @@ public class GameList {
         throw new RuntimeException("Cannot retrieve rank of gameID " + id + ": game does not exist.");
     }
 
+    // TODO: Finish all of the below methods.
+
     public static String getListPlain() {
         String toReturn = "";
 
-        for (Game game : array)
-            toReturn += game + "\n";
+//        for (Game game : array)
+//            toReturn += game + "\n";
 
         return toReturn;
     }
@@ -41,13 +43,18 @@ public class GameList {
     public static String getListHTML() {
         String toReturn = "<html>";
 
-        for (Game game : array)
-            toReturn += game + "<br>\n";
+        for (int i = 0; i < array.size(); i++)
+            toReturn += (i + 1) + ": " + array.get(i).getName() + "<br>";
 
         return toReturn + "</html>";
     }
 
     public static String getListSteam() {
-        return "Not yet implemented."; // TODO: Implement.
+        String toReturn = "";
+
+        for (int i = 0; i < array.size(); i++)
+            toReturn += (i + 1) + ": [url=https://store.steampowered.com/app/" + array.get(i).getID() + "] " + array.get(i).getName() + " [/url]\n";
+
+        return toReturn;
     }
 }

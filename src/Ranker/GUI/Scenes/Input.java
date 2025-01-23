@@ -57,7 +57,8 @@ public class Input extends Scene implements ActionListener {
 
         Window.changeScene(SceneID.Loading);
 
-        // invokeLater allows the loading screen to be displayed before loading the game library into GameList
+        // invokeLater allows the loading screen to be displayed before loading the game library into GameList.
+        // Therefore, all code below will execute only after the loading screen is shown.
         SwingUtilities.invokeLater(() -> {
             final int returnCode = Intake.inputXML(id);
 

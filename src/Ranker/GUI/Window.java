@@ -1,6 +1,7 @@
 package Ranker.GUI;
 
 import Ranker.GUI.Scenes.*;
+
 import javax.swing.*;
 
 public class Window {
@@ -9,7 +10,7 @@ public class Window {
     static final int FRAME_SIZE_Y = 600;
 
     /// The frame for adding and removing scenes to and from
-    private static JFrame frame = new JFrame("Steam Library Ranker");
+    private final static JFrame frame = new JFrame("Steam Library Ranker");
 
     /// A variable to ensure that only one Window object can exist for the duration of the program.
     private static boolean alreadyInitialized = false;
