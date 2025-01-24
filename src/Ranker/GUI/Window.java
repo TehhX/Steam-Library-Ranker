@@ -29,7 +29,7 @@ public class Window {
 
         // Add all scenes to the frame
         for (Scene scene : sceneArray)
-            frame.add(scene);
+            frame.getContentPane().add(scene);
 
         // Set up the frame with the input panel
         frame.setSize(FRAME_SIZE_X, FRAME_SIZE_Y);

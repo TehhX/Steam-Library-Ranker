@@ -9,11 +9,11 @@ public class Game {
         this.gameID = gameID;
     }
 
-    String getName() {
+    public String getName() {
         return gameName;
     }
 
-    int getID() {
+    public int getID() {
         return gameID;
     }
 
