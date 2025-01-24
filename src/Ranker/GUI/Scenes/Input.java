@@ -2,6 +2,7 @@ package Ranker.GUI.Scenes;
 
 import Ranker.Data.Intake;
 import Ranker.GUI.Scene;
+import Ranker.GUI.SceneChangeActions;
 import Ranker.GUI.SceneID;
 import Ranker.GUI.Window;
 
@@ -10,11 +11,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Input extends Scene implements ActionListener {
+public class Input extends Scene implements ActionListener, SceneChangeActions {
     JTextField inputField = new JTextField();
 
     public Input() {
         super(true);
+        addChangeActions(this);
 
         setInputField();
     }
@@ -29,21 +31,20 @@ public class Input extends Scene implements ActionListener {
         add(inputField);
     }
 
-    private void showError() {
-        JOptionPane.showMessageDialog(null, "Enter a valid SteamID64 and try again.");
+    private void showError(final String msg) {
+        JOptionPane.showMessageDialog(null, msg);
+        inputField.requestFocusInWindow();
+        inputField.selectAll();
+    }
+
+    @Override
+    public void addActions() {
+        inputField.requestFocusInWindow();
+    }
+
+    @Override
+    public void removeActions() {
         inputField.setText("");
-        inputField.requestFocusInWindow();
-    }
-
-    @Override
-    public void addScene() {
-        setVisible(true);
-        inputField.requestFocusInWindow();
-    }
-
-    @Override
-    public void removeScene() {
-        setVisible(false);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class Input extends Scene implements ActionListener {
         final String id = inputField.getText().trim();
 
         if (id.length() != 17) {
-            showError();
+            showError("Incorrect SteamID64. Check your input.");
             return;
         }
 
@@ -66,7 +67,11 @@ public class Input extends Scene implements ActionListener {
                 Window.changeScene(SceneID.Output);
             else if (returnCode == 1) {
                 Window.changeScene(SceneID.Input);
-                showError();
+                showError("Server/Steam error. Try again.");
+            }
+            else if (returnCode == 2) {
+                Window.changeScene(SceneID.Input);
+                showError("Incorrect SteamID64. Check your input.");
             }
         });
     }

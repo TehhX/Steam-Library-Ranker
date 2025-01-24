@@ -17,14 +17,4 @@ public class Loading extends Scene {
     private void setLoadLabel() {
         loadLabel.setBounds(100, 100, 500, 500);
     }
-
-    @Override
-    public void addScene() {
-        setVisible(true);
-    }
-
-    @Override
-    public void removeScene() {
-        setVisible(false);
-    }
 }

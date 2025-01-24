@@ -1,6 +1,6 @@
 package Ranker.Data;
 
-class Game {
+public class Game {
     private final String gameName;
     private final int gameID;
 

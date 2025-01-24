@@ -1,34 +1,30 @@
 package Ranker.GUI.Scenes;
 
 import Ranker.Data.GameList;
+import Ranker.GUI.GamePanel;
 import Ranker.GUI.Scene;
+import Ranker.GUI.SceneChangeActions;
 
-import javax.swing.*;
-
-public class Output extends Scene {
-    JLabel label = new JLabel("");
+public class Output extends Scene implements SceneChangeActions {
+    private GamePanel[] panelArray;
 
     public Output() {
         super(true);
-        label.setBounds(50, 50, 0, 0);
-        add(label);
-        refreshLabel();
+
     }
 
-    public void refreshLabel() {
-        label.setText(GameList.getListHTML());
-        label.setSize(label.getPreferredSize().width, label.getPreferredSize().height);
-    }
+    public void refresh() {
+        panelArray = new GamePanel[GameList.length()];
 
-    @Override
-    public void addScene() {
-        refreshLabel();
-        System.out.println(GameList.getListSteam());
-        setVisible(true);
+        for (int i = 0; i < GameList.length(); i++)
+            panelArray[i] = new GamePanel(GameList.getGame(i));
     }
 
     @Override
-    public void removeScene() {
-        setVisible(false);
+    public void addActions() {
+        refresh();
     }
+
+    @Override
+    public void removeActions() {}
 }

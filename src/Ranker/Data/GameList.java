@@ -21,21 +21,19 @@ public class GameList {
         return array.get(index).getID();
     }
 
-    public static int rankOf(final int id) {
-        for (int i = 0; i < array.size(); i++)
-            if (array.get(i).getID() == id)
-                return i;
-
-        throw new RuntimeException("Cannot retrieve rank of gameID " + id + ": game does not exist.");
+    public static int length() {
+        return array.size();
     }
 
-    // TODO: Finish all of the below methods.
+    public static Game getGame(final int index) {
+        return array.get(index);
+    }
 
     public static String getListPlain() {
         String toReturn = "";
 
-//        for (Game game : array)
-//            toReturn += game + "\n";
+        for (int i = 0; i < array.size(); i++)
+            toReturn += (i + 1) + ": " + nameOf(i);
 
         return toReturn;
     }
@@ -44,7 +42,7 @@ public class GameList {
         String toReturn = "<html>";
 
         for (int i = 0; i < array.size(); i++)
-            toReturn += (i + 1) + ": " + array.get(i).getName() + "<br>";
+            toReturn += (i + 1) + ": " + nameOf(i) + "<br>";
 
         return toReturn + "</html>";
     }
@@ -53,7 +51,7 @@ public class GameList {
         String toReturn = "";
 
         for (int i = 0; i < array.size(); i++)
-            toReturn += (i + 1) + ": [url=https://store.steampowered.com/app/" + array.get(i).getID() + "] " + array.get(i).getName() + " [/url]\n";
+            toReturn += (i + 1) + ": [url=https://store.steampowered.com/app/" + idOf(i) + "] " + nameOf(i) + " [/url]\n";
 
         return toReturn;
     }

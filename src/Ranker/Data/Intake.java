@@ -1,8 +1,9 @@
 package Ranker.Data;
 
-import Ranker.GUI.SceneID;
-import Ranker.GUI.Window;
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.URL;
 
@@ -20,11 +21,11 @@ public class Intake {
             document.getDocumentElement().normalize();
         }
         catch (Exception e) {
-            throw new RuntimeException(e);
+            return 1;
         }
 
         if (document.getElementsByTagName("error").getLength() != 0)
-            return 1;
+            return 2;
 
         final NodeList namesList = document.getElementsByTagName("name");
         final NodeList idList = document.getElementsByTagName("appID");

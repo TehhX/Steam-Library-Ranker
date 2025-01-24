@@ -1,6 +1,9 @@
 package Ranker.GUI;
 
-import Ranker.GUI.Scenes.*;
+import Ranker.GUI.Scenes.Input;
+import Ranker.GUI.Scenes.Loading;
+import Ranker.GUI.Scenes.Output;
+import Ranker.GUI.Scenes.Rank;
 
 import javax.swing.*;
 
@@ -12,22 +15,10 @@ public class Window {
     /// The frame for adding and removing scenes to and from
     private final static JFrame frame = new JFrame("Steam Library Ranker");
 
-    /// A variable to ensure that only one Window object can exist for the duration of the program.
-    private static boolean alreadyInitialized = false;
-
     private static SceneID currentScene = null;
     private static Scene[] sceneArray;
 
     public Window() {
-        if (!alreadyInitialized) {
-            windowSetup();
-            alreadyInitialized = true;
-        }
-        else
-            throw new RuntimeException("Attempted to instantiate multiple windows, not allowed.");
-    }
-
-    private static void windowSetup() {
         // Define the array of scenes
         sceneArray = new Scene[] {
             new Input(),
