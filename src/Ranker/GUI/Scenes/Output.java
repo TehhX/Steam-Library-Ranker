@@ -10,6 +10,7 @@ public class Output extends Scene implements SceneChangeActions {
 
     public Output() {
         super(true);
+        addChangeActions(this);
 
     }
 
@@ -22,6 +23,7 @@ public class Output extends Scene implements SceneChangeActions {
 
     @Override
     public void addActions() {
+        System.out.println(GameList.getListPlain());
         refresh();
     }
 

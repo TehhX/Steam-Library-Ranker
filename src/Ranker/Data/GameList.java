@@ -33,11 +33,11 @@ public class GameList {
         String toReturn = "";
 
         for (int i = 0; i < array.size(); i++)
-            toReturn += (i + 1) + ": " + nameOf(i);
+            toReturn += (i + 1) + ": " + nameOf(i) + '\n';
 
         return toReturn;
     }
-
+    
     public static String getListHTML() {
         String toReturn = "<html>";
 
