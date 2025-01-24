@@ -25,6 +25,9 @@ public class Rank extends Scene implements SceneChangeActions {
             panelArray[i] = new GamePanel(GameList.getGame(i), 10 + GamePanel.margin * i);
             add(panelArray[i]);
         }
+
+        for (GamePanel panel : panelArray)
+            panel.addListener();
     }
 
     @Override
@@ -33,5 +36,8 @@ public class Rank extends Scene implements SceneChangeActions {
     }
 
     @Override
-    public void removeActions() {}
+    public void removeActions() {
+        for (GamePanel panel : panelArray)
+            panel.removeListener();
+    }
 }
