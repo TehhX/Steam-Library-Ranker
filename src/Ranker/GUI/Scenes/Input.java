@@ -64,7 +64,7 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
             final int returnCode = Intake.inputXML(id);
 
             if (returnCode == 0)
-                Window.changeScene(SceneID.Output);
+                Window.changeScene(SceneID.Rank);
             else if (returnCode == 1) {
                 Window.changeScene(SceneID.Input);
                 showError("Server/Steam error. Try again.");
