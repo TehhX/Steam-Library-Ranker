@@ -15,6 +15,7 @@ public class GamePanel extends Panel {
     public static final int leftMargin = (Window.FRAME_SIZE_X - width) / 2;
 
     private Game game;
+    private WrappedLabel gameLabel;
 
     public GamePanel(final Game game, final int yPos) {
         super(false);
@@ -23,16 +24,21 @@ public class GamePanel extends Panel {
 
         setBounds(leftMargin, yPos, width, height);
 
-        add(new WrappedLabel(game.getName()));
+        gameLabel = new WrappedLabel(game.getName());
 
+        add(gameLabel);
         add(new Panel(false, g -> {
             g.setColor(new Color(114, 9, 183));
             g.fillRoundRect(0, 0, width, height, arc, arc);
         }));
     }
 
-    @Override
-    public String toString() {
-        return game.getName();
+    public void setGame(final Game game) {
+        this.game = game;
+        gameLabel.setText(WrappedLabel.getWrappedText(game.getName()));
+    }
+
+    public Game getGame() {
+        return game;
     }
 }

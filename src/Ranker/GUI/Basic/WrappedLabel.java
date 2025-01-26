@@ -17,10 +17,10 @@ public class WrappedLabel extends JLabel {
         setOpaque(false);
         setBorder(null);
         setBounds(50, 0, GamePanel.width, GamePanel.height);
-        setText(wrapText(text));
+        setText(getWrappedText(text));
     }
 
-    private String wrapText(final String text) {
+    public static String getWrappedText(final String text) {
         final int charCount = text.length();
 
         if (charCount < maxCharsPerLine)

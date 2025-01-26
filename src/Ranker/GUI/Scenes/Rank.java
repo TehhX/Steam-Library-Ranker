@@ -1,18 +1,17 @@
 package Ranker.GUI.Scenes;
 
+import Ranker.Data.Game;
 import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Panel;
 import Ranker.GUI.Basic.Scene;
 import Ranker.GUI.GamePanel;
 import Ranker.GUI.Window;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, KeyListener {
-    private static final int scrollMultiplier = 50;
+public class Rank extends Scene implements SceneChangeActions, MouseWheelListener {
+    private static final int scrollMultiplier = 30;
 
     private static GamePanel[] panelArray;
 
@@ -57,14 +56,9 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     }
 
     private void swapPanels(final int p1, final int p2) {
-        final GamePanel p1Panel = panelArray[p1];
-        final GamePanel p2Panel = panelArray[p2];
-
-        panelArray[p1] = p2Panel;
-        panelArray[p1].setBounds(p2Panel.getBounds());
-
-        panelArray[p2] = p1Panel;
-        panelArray[p2].setBounds(p1Panel.getBounds());
+        final Game temp = panelArray[p1].getGame();
+        panelArray[p1].setGame(panelArray[p2].getGame());
+        panelArray[p2].setGame(temp);
     }
 
     public static void clearPanelArray() {
@@ -101,12 +95,4 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
         setScrolledBounds(yPos);
     }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        swapPanels(0, 1);
-    }
-
-    @Override public void keyTyped(KeyEvent e) {}
-    @Override public void keyReleased(KeyEvent e) {}
 }

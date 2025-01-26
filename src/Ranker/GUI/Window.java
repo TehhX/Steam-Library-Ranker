@@ -8,6 +8,7 @@ import Ranker.GUI.Scenes.Rank;
 
 import javax.swing.*;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelListener;
 
 public class Window {
@@ -16,7 +17,7 @@ public class Window {
     public static final int FRAME_SIZE_Y = 600;
 
     /// The frame for adding and removing scenes to and from
-    private final static JFrame frame = new JFrame("Steam Library Ranker");
+    private static final JFrame frame = new JFrame("Steam Library Ranker");
 
     private static SceneID currentScene = null;
     private static Scene[] sceneArray;
@@ -56,19 +57,25 @@ public class Window {
         currentScene = nextScene;
     }
 
-    public static void addListeners(final Scene sceneListener) {
-        if (sceneListener instanceof KeyListener)
-            frame.addKeyListener((KeyListener) sceneListener);
+    public static void addListeners(final Scene scene) {
+        if (scene instanceof KeyListener)
+            frame.addKeyListener((KeyListener) scene);
 
-        if (sceneListener instanceof MouseWheelListener)
-            frame.addMouseWheelListener((MouseWheelListener) sceneListener);
+        if (scene instanceof MouseWheelListener)
+            frame.addMouseWheelListener((MouseWheelListener) scene);
+
+        if (scene instanceof MouseListener)
+            frame.addMouseListener((MouseListener) scene);
     }
 
-    public static void removeListeners(final Scene sceneListener) {
-        if (sceneListener instanceof KeyListener)
-            frame.removeKeyListener((KeyListener) sceneListener);
+    public static void removeListeners(final Scene scene) {
+        if (scene instanceof KeyListener)
+            frame.removeKeyListener((KeyListener) scene);
 
-        if (sceneListener instanceof MouseWheelListener)
-            frame.removeMouseWheelListener((MouseWheelListener) sceneListener);
+        if (scene instanceof MouseWheelListener)
+            frame.removeMouseWheelListener((MouseWheelListener) scene);
+
+        if (scene instanceof MouseListener)
+            frame.removeMouseListener((MouseListener) scene);
     }
 }
