@@ -4,19 +4,25 @@ import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Panel;
 import Ranker.GUI.Basic.Scene;
 import Ranker.GUI.GamePanel;
+import Ranker.GUI.Window;
 
+import java.awt.*;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 public class Rank extends Scene implements SceneChangeActions, MouseWheelListener {
-    private static final int scrollMultiplier = 25;
+    private static final int leftMargin = 300;
+    private static final int scrollMultiplier = 50;
 
     private static GamePanel[] panelArray;
 
-    private Panel innerPanel = new Panel(false);
+    private Panel innerPanel = new Panel(true);
 
     public Rank() {
         super(true);
+
+        innerPanel.setBounds(leftMargin, 0, 0, 0);
+        innerPanel.setBackground(Color.GREEN);
 
         add(innerPanel);
         addChangeActions(this);
@@ -35,12 +41,26 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
             innerPanel.add(panelArray[i]);
         }
 
-        // H = Height, n = Panel Count.
-        // H(n) = 165n -5
-        // D: {n E N | n > 0}      R: {H E N}
-        innerPanel.setSize(
+        setScrolledBounds(0);
+    }
+
+    // H = Height, n = Panel Count.
+    // H(n) = 165n -5
+    // D: {n E N | n > 0}      R: {H E N}
+    private int getMaxHeight() {
+        return GamePanel.margin * panelArray.length - 5;
+    }
+
+    private int newYPos(final int rotation) {
+        return innerPanel.getY() - rotation * scrollMultiplier;
+    }
+
+    private void setScrolledBounds(final int newYPos) {
+        innerPanel.setBounds(
+            leftMargin,
+            newYPos,
             GamePanel.width,
-            GamePanel.margin * panelArray.length - 5
+            getMaxHeight()
         );
     }
 
@@ -60,11 +80,22 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        innerPanel.setBounds(
-            0,
-            innerPanel.getY() - e.getWheelRotation() * scrollMultiplier,
-            GamePanel.width,
-            innerPanel.getSize().height
-        );
+        final int lowestPos = -getMaxHeight() + Window.FRAME_SIZE_Y;
+        final int yPos = newYPos(e.getWheelRotation());
+
+        final boolean tooHigh = yPos > 0;
+        final boolean tooLow = yPos < lowestPos;
+
+        if (tooHigh) {
+            setScrolledBounds(0);
+            return;
+        }
+
+        if (tooLow) {
+            setScrolledBounds(lowestPos);
+            return;
+        }
+
+        setScrolledBounds(yPos);
     }
 }

@@ -46,16 +46,18 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
 
     @Override
     public void actionPerformed(ActionEvent ignored) {
-        // To use debug SteamID
-        final String id = "76561198284660364";
+        final boolean debug = true;
+        String id;
 
-        // To get SteamID from field.
-        //final String id = inputField.getText().trim();
-        //
-        //if (id.length() != 17) {
-        //    showError("Incorrect SteamID64. Check your input.");
-        //    return;
-        //}
+        if (debug)
+            id = "76561198284660364";
+        else
+            id = inputField.getText().trim();
+
+        if (id.length() != 17) {
+            showError("Incorrect SteamID64. Check your input.");
+            return;
+        }
 
         Window.changeScene(SceneID.Loading);
 
