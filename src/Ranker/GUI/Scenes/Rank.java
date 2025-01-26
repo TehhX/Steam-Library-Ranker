@@ -6,7 +6,6 @@ import Ranker.GUI.Basic.Scene;
 import Ranker.GUI.GamePanel;
 import Ranker.GUI.Window;
 
-import java.awt.*;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
@@ -16,13 +15,10 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
     private static GamePanel[] panelArray;
 
-    private Panel innerPanel = new Panel(true);
+    private Panel innerPanel = new Panel(false);
 
     public Rank() {
         super(true);
-
-        innerPanel.setBounds(leftMargin, 0, 0, 0);
-        innerPanel.setBackground(Color.GREEN);
 
         add(innerPanel);
         addChangeActions(this);
@@ -44,9 +40,6 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         setScrolledBounds(0);
     }
 
-    // H = Height, n = Panel Count.
-    // H(n) = 165n -5
-    // D: {n E N | n > 0}      R: {H E N}
     private int getMaxHeight() {
         return GamePanel.margin * panelArray.length - 5;
     }
