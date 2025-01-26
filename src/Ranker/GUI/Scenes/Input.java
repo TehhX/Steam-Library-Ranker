@@ -22,9 +22,7 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
         inputField.setForeground(Color.black);
         inputField.setFocusable(true);
         inputField.setBounds(100, 100, 500, 500);
-        inputField.addActionListener(this);
 
-        addChangeActions(this);
         add(inputField);
     }
 
@@ -37,11 +35,13 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
     @Override
     public void addActions() {
         SwingUtilities.invokeLater(inputField::requestFocusInWindow);
+        inputField.addActionListener(this);
     }
 
     @Override
     public void removeActions() {
         inputField.setText("");
+        inputField.removeActionListener(this);
     }
 
     @Override

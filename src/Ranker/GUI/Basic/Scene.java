@@ -1,12 +1,16 @@
 package Ranker.GUI.Basic;
 
 import Ranker.GUI.Scenes.SceneChangeActions;
+import Ranker.GUI.Window;
 
 public class Scene extends Panel {
     private SceneChangeActions changeActions = null;
 
     public Scene(final boolean opaque) {
         super(opaque);
+
+        if (this instanceof SceneChangeActions)
+            addChangeActions((SceneChangeActions) this);
 
         setVisible(false);
     }
@@ -20,12 +24,14 @@ public class Scene extends Panel {
         if (changeActions != null)
             changeActions.addActions();
 
+        Window.addListeners(this);
         setVisible(true);
     }
 
     /// Code to execute when removing a scene from the frame.
     public void removeScene() {
         setVisible(false);
+        Window.removeListeners(this);
 
         if (changeActions != null)
             changeActions.removeActions();

@@ -6,11 +6,12 @@ import Ranker.GUI.Basic.Scene;
 import Ranker.GUI.GamePanel;
 import Ranker.GUI.Window;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-public class Rank extends Scene implements SceneChangeActions, MouseWheelListener {
-    private static final int leftMargin = 300;
+public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, KeyListener {
     private static final int scrollMultiplier = 50;
 
     private static GamePanel[] panelArray;
@@ -21,8 +22,6 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         super(true);
 
         add(innerPanel);
-        addChangeActions(this);
-        addMouseWheelListener(this);
     }
 
     public void refresh() {
@@ -33,7 +32,7 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         panelArray = new GamePanel[GameList.length()];
 
         for (int i = 0; i < panelArray.length; i++) {
-            panelArray[i] = new GamePanel(GameList.getGame(i), 10 + GamePanel.margin * i);
+            panelArray[i] = new GamePanel(GameList.getGame(i), 10 + GamePanel.topMargin * i);
             innerPanel.add(panelArray[i]);
         }
 
@@ -41,7 +40,7 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     }
 
     private int getMaxHeight() {
-        return GamePanel.margin * panelArray.length - 5;
+        return GamePanel.topMargin * panelArray.length - 5;
     }
 
     private int newYPos(final int rotation) {
@@ -50,11 +49,22 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
     private void setScrolledBounds(final int newYPos) {
         innerPanel.setBounds(
-            leftMargin,
+            0,
             newYPos,
-            GamePanel.width,
+            Window.FRAME_SIZE_X,
             getMaxHeight()
         );
+    }
+
+    private void swapPanels(final int p1, final int p2) {
+        final GamePanel p1Panel = panelArray[p1];
+        final GamePanel p2Panel = panelArray[p2];
+
+        panelArray[p1] = p2Panel;
+        panelArray[p1].setBounds(p2Panel.getBounds());
+
+        panelArray[p2] = p1Panel;
+        panelArray[p2].setBounds(p1Panel.getBounds());
     }
 
     public static void clearPanelArray() {
@@ -91,4 +101,12 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
         setScrolledBounds(yPos);
     }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        swapPanels(0, 1);
+    }
+
+    @Override public void keyTyped(KeyEvent e) {}
+    @Override public void keyReleased(KeyEvent e) {}
 }

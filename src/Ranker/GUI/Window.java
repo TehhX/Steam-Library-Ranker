@@ -7,6 +7,8 @@ import Ranker.GUI.Scenes.Output;
 import Ranker.GUI.Scenes.Rank;
 
 import javax.swing.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelListener;
 
 public class Window {
     // The frame dimensions
@@ -45,12 +47,28 @@ public class Window {
     }
 
     /// Removes the previous scene unless there has been no scenes added yet, adds the requested scene regardless.
-    public static void changeScene(SceneID nextScene) {
+    public static void changeScene(final SceneID nextScene) {
         if (currentScene != null)
             sceneArray[currentScene.ordinal()].removeScene();
 
         frame.requestFocus();
         sceneArray[nextScene.ordinal()].addScene();
         currentScene = nextScene;
+    }
+
+    public static void addListeners(final Scene sceneListener) {
+        if (sceneListener instanceof KeyListener)
+            frame.addKeyListener((KeyListener) sceneListener);
+
+        if (sceneListener instanceof MouseWheelListener)
+            frame.addMouseWheelListener((MouseWheelListener) sceneListener);
+    }
+
+    public static void removeListeners(final Scene sceneListener) {
+        if (sceneListener instanceof KeyListener)
+            frame.removeKeyListener((KeyListener) sceneListener);
+
+        if (sceneListener instanceof MouseWheelListener)
+            frame.removeMouseWheelListener((MouseWheelListener) sceneListener);
     }
 }
