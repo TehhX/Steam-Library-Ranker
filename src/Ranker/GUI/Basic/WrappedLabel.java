@@ -1,10 +1,12 @@
 package Ranker.GUI.Basic;
 
+import Ranker.GUI.GamePanel;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class WrappedLabel extends JLabel {
-    public WrappedLabel(final String text, final int yPos, final int xSize) {
+    public WrappedLabel(final String text) {
         super(text);
 
         setFont(new Font("Arial", Font.PLAIN, 30));
@@ -12,6 +14,6 @@ public class WrappedLabel extends JLabel {
         setBackground(null);
         setOpaque(false);
         setBorder(null);
-        setBounds(200, yPos, xSize, getPreferredSize().height);
+        setBounds(50, 0, GamePanel.width, GamePanel.height);
     }
 }

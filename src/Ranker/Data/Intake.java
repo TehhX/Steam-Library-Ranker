@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class Intake {
     /// A set of non-games that will not be included in the ranking.
-    private static Set<Integer> nonGames = new HashSet<>();
+    private static final Set<Integer> nonGames = new HashSet<>();
 
     /// Downloads the user library associated with the userID into GameList.
     public static int downloadUserLibrary(final String userID) {

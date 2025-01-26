@@ -11,22 +11,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Input extends Scene implements ActionListener, SceneChangeActions {
-    JTextField inputField = new JTextField();
+    private final JTextField inputField = new JTextField();
 
     public Input() {
         super(true);
-        addChangeActions(this);
 
-        setInputField();
-    }
-
-    private void setInputField() {
         inputField.setBorder(null);
         inputField.setBackground(null);
         inputField.setForeground(Color.black);
         inputField.setFocusable(true);
         inputField.setBounds(100, 100, 500, 500);
         inputField.addActionListener(this);
+
+        addChangeActions(this);
         add(inputField);
     }
 
@@ -38,7 +35,7 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
 
     @Override
     public void addActions() {
-        inputField.requestFocusInWindow();
+        SwingUtilities.invokeLater(inputField::requestFocusInWindow);
     }
 
     @Override
@@ -48,13 +45,16 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
 
     @Override
     public void actionPerformed(ActionEvent ignored) {
+        // To use debug SteamID
         final String id = "76561198284660364";
 
-//        final String id = inputField.getText().trim();
-//        if (id.length() != 17) {
-//            showError("Incorrect SteamID64. Check your input.");
-//            return;
-//        }
+        // To get SteamID from field.
+        //final String id = inputField.getText().trim();
+        //
+        //if (id.length() != 17) {
+        //    showError("Incorrect SteamID64. Check your input.");
+        //    return;
+        //}
 
         Window.changeScene(SceneID.Loading);
 
@@ -65,10 +65,12 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
 
             if (returnCode == 0)
                 Window.changeScene(SceneID.Rank);
+
             else if (returnCode == 1) {
                 Window.changeScene(SceneID.Input);
-                showError("Server/Steam error. Try again.");
+                showError("Server/Steam error. Try again later.");
             }
+
             else if (returnCode == 2) {
                 Window.changeScene(SceneID.Input);
                 showError("Incorrect SteamID64. Check your input.");

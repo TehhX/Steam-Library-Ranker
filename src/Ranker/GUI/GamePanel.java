@@ -15,26 +15,19 @@ public class GamePanel extends Panel implements MouseListener {
     public static final int height = 150;
     public static final int margin = height + 15;
 
-    private final WrappedLabel gameName;
-
-    final Game game;
+    private final Panel background = new Panel(false, g -> {
+        g.setColor(new Color(114, 9, 183));
+        g.fillRoundRect(0, 0, width, height, arc, arc);
+    });
 
     public GamePanel(final Game game, final int yPos) {
         super(false);
 
-        this.game = game;
-        this.gameName = new WrappedLabel(game.getName(), yPos, width);
-
         setBackground(Color.green);
-        setBounds(300, yPos, width, height);
+        setBounds(0, yPos, width, height);
 
-        add(gameName);
-
-        // Background color.
-        add(new Panel(false, g -> {
-            g.setColor(new Color(114, 9, 183));
-            g.fillRoundRect(0, 0, width, height, arc, arc);
-        }));
+        add(new WrappedLabel(game.getName()));
+        add(background);
     }
 
     public void addListener() {
@@ -52,7 +45,7 @@ public class GamePanel extends Panel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println(e.getPoint());
+
     }
 
     @Override
