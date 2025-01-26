@@ -3,7 +3,6 @@ package Ranker.GUI.Scenes;
 import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Scene;
 import Ranker.GUI.GamePanel;
-import Ranker.GUI.SceneChangeActions;
 
 public class Rank extends Scene implements SceneChangeActions {
     private static GamePanel[] panelArray;

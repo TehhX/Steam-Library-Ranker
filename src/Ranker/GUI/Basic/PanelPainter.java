@@ -1,4 +1,4 @@
-package Ranker.GUI;
+package Ranker.GUI.Basic;
 
 import java.awt.*;
 

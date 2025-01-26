@@ -2,8 +2,8 @@ package Ranker.GUI;
 
 import Ranker.Data.Game;
 import Ranker.GUI.Basic.Panel;
+import Ranker.GUI.Basic.WrappedLabel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,7 +15,7 @@ public class GamePanel extends Panel implements MouseListener {
     public static final int height = 150;
     public static final int margin = height + 15;
 
-    private final JTextArea gameName;
+    private final WrappedLabel gameName;
 
     final Game game;
 
@@ -23,21 +23,18 @@ public class GamePanel extends Panel implements MouseListener {
         super(false);
 
         this.game = game;
-        this.gameName = new JTextArea(game.getName());
+        this.gameName = new WrappedLabel(game.getName(), yPos, width);
 
         setBackground(Color.green);
         setBounds(300, yPos, width, height);
 
-        gameName.setBounds(0, 0, width, height);
-        gameName.setEditable(false);
-        gameName.setFocusable(false);
-        gameName.setFont(new Font("Arial", Font.PLAIN, 30));
-        gameName.setLineWrap(true);
-        gameName.setBorder(null);
-        gameName.setBackground(null);
-        gameName.setForeground(Color.black);
-        gameName.setOpaque(false);
         add(gameName);
+
+        // Background color.
+        add(new Panel(false, g -> {
+            g.setColor(new Color(114, 9, 183));
+            g.fillRoundRect(0, 0, width, height, arc, arc);
+        }));
     }
 
     public void addListener() {

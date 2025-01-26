@@ -1,6 +1,5 @@
 package Ranker.GUI.Basic;
 
-import Ranker.GUI.PanelPainter;
 import Ranker.GUI.Window;
 
 import javax.swing.*;

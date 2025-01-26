@@ -2,7 +2,6 @@ package Ranker.GUI.Scenes;
 
 import Ranker.Data.Intake;
 import Ranker.GUI.Basic.Scene;
-import Ranker.GUI.SceneChangeActions;
 import Ranker.GUI.SceneID;
 import Ranker.GUI.Window;
 

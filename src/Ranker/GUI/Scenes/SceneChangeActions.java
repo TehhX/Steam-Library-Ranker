@@ -1,4 +1,4 @@
-package Ranker.GUI;
+package Ranker.GUI.Scenes;
 
 /**
  * An interface to help with adding and removing scenes from the frame. Adding or removing listeners, refreshing
@@ -6,5 +6,6 @@ package Ranker.GUI;
  */
 public interface SceneChangeActions {
     void addActions();
+
     void removeActions();
 }
