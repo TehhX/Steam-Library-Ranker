@@ -29,6 +29,15 @@ public class GameList {
         return gameArrayList.get(index);
     }
 
+    public static String getListPaired() {
+        String toReturn = "";
+
+        for (int i = 0; i < gameArrayList.size(); i++)
+            toReturn += nameOf(i) + ": " + idOf(i) + "\n";
+
+        return toReturn;
+    }
+
     public static String getListPlain() {
         String toReturn = "";
 

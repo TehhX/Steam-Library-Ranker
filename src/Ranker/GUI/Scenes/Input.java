@@ -1,7 +1,7 @@
 package Ranker.GUI.Scenes;
 
 import Ranker.Data.Intake;
-import Ranker.GUI.Scene;
+import Ranker.GUI.Basic.Scene;
 import Ranker.GUI.SceneChangeActions;
 import Ranker.GUI.SceneID;
 import Ranker.GUI.Window;
@@ -49,19 +49,20 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
 
     @Override
     public void actionPerformed(ActionEvent ignored) {
-        final String id = inputField.getText().trim();
+        final String id = "76561198284660364";
 
-        if (id.length() != 17) {
-            showError("Incorrect SteamID64. Check your input.");
-            return;
-        }
+//        final String id = inputField.getText().trim();
+//        if (id.length() != 17) {
+//            showError("Incorrect SteamID64. Check your input.");
+//            return;
+//        }
 
         Window.changeScene(SceneID.Loading);
 
         // invokeLater allows the loading screen to be displayed before loading the game library into GameList.
         // Therefore, all code below will execute only after the loading screen is shown.
         SwingUtilities.invokeLater(() -> {
-            final int returnCode = Intake.inputXML(id);
+            final int returnCode = Intake.downloadUserLibrary(id);
 
             if (returnCode == 0)
                 Window.changeScene(SceneID.Rank);

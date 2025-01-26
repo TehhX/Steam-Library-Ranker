@@ -1,4 +1,6 @@
-package Ranker.GUI;
+package Ranker.GUI.Basic;
+
+import Ranker.GUI.SceneChangeActions;
 
 public class Scene extends Panel {
     private SceneChangeActions changeActions = null;

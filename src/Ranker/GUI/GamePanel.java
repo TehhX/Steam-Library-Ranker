@@ -1,7 +1,9 @@
 package Ranker.GUI;
 
 import Ranker.Data.Game;
+import Ranker.GUI.Basic.Panel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,7 +15,7 @@ public class GamePanel extends Panel implements MouseListener {
     public static final int height = 150;
     public static final int margin = height + 15;
 
-    private boolean mouseIn = false;
+    private final JTextArea gameName;
 
     final Game game;
 
@@ -21,8 +23,21 @@ public class GamePanel extends Panel implements MouseListener {
         super(false);
 
         this.game = game;
+        this.gameName = new JTextArea(game.getName());
 
+        setBackground(Color.green);
         setBounds(300, yPos, width, height);
+
+        gameName.setBounds(0, 0, width, height);
+        gameName.setEditable(false);
+        gameName.setFocusable(false);
+        gameName.setFont(new Font("Arial", Font.PLAIN, 30));
+        gameName.setLineWrap(true);
+        gameName.setBorder(null);
+        gameName.setBackground(null);
+        gameName.setForeground(Color.black);
+        gameName.setOpaque(false);
+        add(gameName);
     }
 
     public void addListener() {
@@ -34,23 +49,13 @@ public class GamePanel extends Panel implements MouseListener {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-
-        g.fillRoundRect(0, 0, width, height, arc, arc);
-        g.setColor(Color.green);
-        g.setFont(new Font("Arial", Font.PLAIN, 40));
-        g.drawString(game.getName(), 20, 40);
-    }
-
-    @Override
     public void mouseClicked(MouseEvent e) {
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println(game.getName());
+        System.out.println(e.getPoint());
     }
 
     @Override

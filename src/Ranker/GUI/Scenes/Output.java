@@ -1,6 +1,6 @@
 package Ranker.GUI.Scenes;
 
-import Ranker.GUI.Scene;
+import Ranker.GUI.Basic.Scene;
 
 public class Output extends Scene {
     public Output() {
