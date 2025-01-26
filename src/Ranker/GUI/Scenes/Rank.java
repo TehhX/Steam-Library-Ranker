@@ -9,6 +9,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 public class Rank extends Scene implements SceneChangeActions, MouseWheelListener {
+    private static final int scrollMultiplier = 25;
+
     private static GamePanel[] panelArray;
 
     private Panel innerPanel = new Panel(false);
@@ -33,13 +35,9 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
             innerPanel.add(panelArray[i]);
         }
 
-        for (GamePanel panel : panelArray)
-            panel.addListener();
-
         // H = Height, n = Panel Count.
         // H(n) = 165n -5
-        // D: {n E N | n > 0}
-        // R: {H E N}
+        // D: {n E N | n > 0}      R: {H E N}
         innerPanel.setSize(
             GamePanel.width,
             GamePanel.margin * panelArray.length - 5
@@ -57,16 +55,15 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
     @Override
     public void removeActions() {
-        for (GamePanel panel : panelArray)
-            panel.removeListener();
+        clearPanelArray();
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         innerPanel.setBounds(
-            innerPanel.getX(),
-            innerPanel.getY() - e.getWheelRotation() * 10,
-            innerPanel.getSize().width,
+            0,
+            innerPanel.getY() - e.getWheelRotation() * scrollMultiplier,
+            GamePanel.width,
             innerPanel.getSize().height
         );
     }
