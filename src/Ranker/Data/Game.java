@@ -1,5 +1,6 @@
 package Ranker.Data;
 
+/// A data class for storing the name and appID of a Steam game.
 public class Game {
     private final String gameName;
     private final int gameID;
@@ -15,10 +16,5 @@ public class Game {
 
     public int getID() {
         return gameID;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + gameName + ", " + gameID + "]";
     }
 }

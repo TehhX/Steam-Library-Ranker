@@ -14,26 +14,29 @@ public class GamePanel extends Panel {
     public static final int topMargin = height + 15;
     public static final int leftMargin = (Window.FRAME_SIZE_X - width) / 2;
 
-    private WrappedLabel gameLabel;
-    private int gameIndex;
+    private final WrappedLabel gameLabel;
+    private final int gameIndex;
 
-    public GamePanel(final int gameIndex, final int yPos) {
+    public GamePanel(final int gameIndex) {
         super(false);
 
         this.gameIndex = gameIndex;
 
-        setBounds(leftMargin, yPos, width, height);
+        setBounds(leftMargin, 10 + topMargin * gameIndex, width, height);
 
         gameLabel = new WrappedLabel(GameList.nameOf(gameIndex));
 
         add(gameLabel);
         add(new Panel(false, g -> {
-            g.setColor(new Color(114, 9, 183));
+            g.setColor(new Color(157, 42, 234));
             g.fillRoundRect(0, 0, width, height, arc, arc);
         }));
     }
 
     public void update() {
-        gameLabel.setText(GameList.nameOf(gameIndex));
+        final String normName = GameList.nameOf(gameIndex);
+        final String wrapName = WrappedLabel.getWrappedText(normName);
+
+        gameLabel.setText(wrapName);
     }
 }

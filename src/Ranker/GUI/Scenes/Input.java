@@ -63,21 +63,23 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
 
         // invokeLater allows the loading screen to be displayed before loading the game library into GameList.
         // Therefore, all code below will execute only after the loading screen is shown.
-        SwingUtilities.invokeLater(() -> {
-            final int returnCode = Intake.downloadUserLibrary(id);
+        SwingUtilities.invokeLater(() -> runIntake(id));
+    }
 
-            if (returnCode == 0)
-                Window.changeScene(SceneID.Rank);
+    private void runIntake(final String id) {
+        final int returnCode = Intake.downloadUserLibrary(id);
 
-            else if (returnCode == 1) {
-                Window.changeScene(SceneID.Input);
-                showError("Server/Steam error. Try again later.");
-            }
+        if (returnCode == 0)
+            Window.changeScene(SceneID.Rank);
 
-            else if (returnCode == 2) {
-                Window.changeScene(SceneID.Input);
-                showError("Incorrect SteamID64. Check your input.");
-            }
-        });
+        else if (returnCode == 1) {
+            Window.changeScene(SceneID.Input);
+            showError("Server/Steam error. Try again later.");
+        }
+
+        else if (returnCode == 2) {
+            Window.changeScene(SceneID.Input);
+            showError("Incorrect SteamID64. Check your input.");
+        }
     }
 }

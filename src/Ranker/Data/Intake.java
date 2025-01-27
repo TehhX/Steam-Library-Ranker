@@ -13,8 +13,14 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Intake {
+    /// Non-game count, for the nonGames size. Update when adding new non-games.
+    private static final int nonGameCount = 84;
+
+    /// This load factor ensures nonGames will not try to rehash itself unnecessarily.
+    private static final float loadFactor = 1.0f;
+
     /// A set of non-games that will not be included in the ranking.
-    private static final Set<Integer> nonGames = new HashSet<>();
+    private static final Set<Integer> nonGames = new HashSet<>(nonGameCount, loadFactor);
 
     /// Downloads the user library associated with the userID into GameList.
     public static int downloadUserLibrary(final String userID) {
@@ -67,15 +73,23 @@ public class Intake {
         return !nonGames.contains(Integer.parseInt(idNode.getTextContent()));
     }
 
-    public static void loadNonGames() throws Exception {
-        final Scanner sc = new Scanner(new File("nonGames.txt"));
+    public static void loadNonGames() {
+        try {
+            final Scanner sc = new Scanner(new File("nonGames.txt"));
 
-        while (sc.hasNext()) {
-            final String next = sc.nextLine();
+            while (sc.hasNext()) {
+                final String next = sc.nextLine();
 
-            if (!next.startsWith("//"))
-                nonGames.add(Integer.parseInt(next));
+                if (!next.startsWith("//"))
+                    nonGames.add(Integer.parseInt(next));
+            }
         }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        // Use when updating non-game list to get new nonGameCount.
+        // System.out.println(nonGames.size());
     }
 
     /// Clears everything, suggests that the VM runs GC.
@@ -85,6 +99,10 @@ public class Intake {
 
         // Clear the panel array
         Rank.clearPanelArray();
+
+        // Clear and reload non-games
+        nonGames.clear();
+        loadNonGames();
 
         // Suggest running garbage collector
         System.gc();

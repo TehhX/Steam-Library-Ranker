@@ -12,10 +12,11 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, KeyListener {
-    private static final int scrollMultiplier = 30;
+    private static final int scrollMultiplier = 35;
 
     private static GamePanel[] panelArray;
 
+    /// The panel which contains all GamePanels, and is moved by scrolling.
     private Panel innerPanel = new Panel(false);
 
     public Rank() {
@@ -32,7 +33,7 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         panelArray = new GamePanel[GameList.length()];
 
         for (int i = 0; i < panelArray.length; i++) {
-            panelArray[i] = new GamePanel(i, 10 + GamePanel.topMargin * i);
+            panelArray[i] = new GamePanel(i);
             innerPanel.add(panelArray[i]);
         }
 
@@ -40,7 +41,7 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     }
 
     private int getMaxHeight() {
-        return GamePanel.topMargin * panelArray.length - 5;
+        return GamePanel.topMargin * panelArray.length + 5;
     }
 
     private int newYPos(final int rotation) {
