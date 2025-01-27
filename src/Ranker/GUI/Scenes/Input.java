@@ -46,17 +46,12 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
 
     @Override
     public void actionPerformed(ActionEvent ignored) {
-        String id;
+        @SuppressWarnings("ConstantConditionalExpression")
 
-        if (true)
-            id = "76561198284660364";
-        else
-            id = inputField.getText().trim();
+        // Ternary boolean changes debug mode on and off.
+        final String id = (true ? "76561198284660364" : inputField.getText().trim());
 
         Window.changeScene(SceneID.Loading);
-
-        // invokeLater allows the loading screen to be displayed before loading the game library into GameList.
-        // Therefore, all code below will execute only after the loading screen is shown.
         SwingUtilities.invokeLater(() -> runIntake(id));
     }
 

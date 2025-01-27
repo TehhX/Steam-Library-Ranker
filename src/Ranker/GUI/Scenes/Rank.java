@@ -1,6 +1,5 @@
 package Ranker.GUI.Scenes;
 
-import Ranker.Data.Game;
 import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Panel;
 import Ranker.GUI.Basic.Scene;
@@ -10,10 +9,12 @@ import Ranker.GUI.Window;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, KeyListener, MouseListener {
+public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, MouseListener {
     private static final int scrollMultiplier = 35;
 
     private static GamePanel[] panelArray;
+
+    private static int pressIndex = -1;
 
     /// The panel which contains all GamePanels, and is moved by scrolling.
     private Panel innerPanel = new Panel(false);
@@ -109,34 +110,19 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        final int num = Character.getNumericValue(e.getKeyChar());
-
-        if (e.getKeyChar() == 'e')
-            System.out.println(GameList.getListPlain());
-
-        if (num < 0 || num > 9)
-            return;
-
-        swapPanels(num, num + 1);
-    }
-
-    @Override public void keyTyped(KeyEvent e) {}
-    @Override public void keyReleased(KeyEvent e) {}
-
-    @Override
     public void mouseClicked(MouseEvent e) {
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println(GameList.nameOf(indexOf(e.getPoint())));
+        pressIndex = indexOf(e.getPoint());
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        final int releaseIndex = indexOf(e.getPoint());
+        swapPanels(pressIndex, releaseIndex);
     }
 
     @Override
