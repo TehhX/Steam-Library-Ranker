@@ -7,16 +7,18 @@ import Ranker.GUI.Basic.WrappedLabel;
 import java.awt.*;
 
 public class GamePanel extends Panel {
-    // Various constants
+    // Various global GamePanel constants
     public static final int arc = 40;
     public static final int width = 600;
     public static final int height = 150;
     public static final int topMargin = height + 15;
     public static final int leftMargin = (Window.FRAME_SIZE_X - width) / 2;
+
+    // Various instance-wide GamePanel constants
     public final Point regularPos;
+    public final int gameIndex;
 
     private final WrappedLabel gameLabel;
-    private final int gameIndex;
 
     public GamePanel(final int gameIndex) {
         super(false);
@@ -40,7 +42,6 @@ public class GamePanel extends Panel {
         final String wrapName = WrappedLabel.getWrappedText(normName);
 
         setPosition(regularPos);
-
         gameLabel.setText(wrapName);
     }
 

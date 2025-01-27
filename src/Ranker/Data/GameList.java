@@ -25,7 +25,6 @@ public class GameList {
         return gameArrayList.size();
     }
 
-    /// Nudges an element into another position
     public static void nudge(final int take, final int put) {
         final Game temp = gameArrayList.get(take);
 
