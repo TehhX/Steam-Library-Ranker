@@ -26,7 +26,11 @@ public class GameList {
     }
 
     public static void swap(final int i1, final int i2) {
+        if (i1 == i2)
+            return;
+
         final Game temp = gameArrayList.get(i1);
+
         gameArrayList.set(i1, gameArrayList.get(i2));
         gameArrayList.set(i2, temp);
     }

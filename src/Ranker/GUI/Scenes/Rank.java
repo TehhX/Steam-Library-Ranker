@@ -9,12 +9,10 @@ import Ranker.GUI.Window;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, MouseListener {
+public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, MouseListener, MouseMotionListener {
     private static final int scrollMultiplier = 35;
 
     private static GamePanel[] panelArray;
-
-    private static int pressIndex = -1;
 
     /// The panel which contains all GamePanels, and is moved by scrolling.
     private Panel innerPanel = new Panel(false);
@@ -42,10 +40,6 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
     private int getMaxHeight() {
         return GamePanel.topMargin * panelArray.length + 5;
-    }
-
-    private int newYPos(final int rotation) {
-        return innerPanel.getY() - rotation * scrollMultiplier;
     }
 
     private void setScrolledBounds(final int newYPos) {
@@ -83,8 +77,8 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        final int lowestPos = -getMaxHeight() + Window.FRAME_SIZE_Y;
-        final int yPos = newYPos(e.getWheelRotation());
+        final int lowestPos = Window.FRAME_SIZE_Y - getMaxHeight();
+        final int yPos = innerPanel.getY() - e.getWheelRotation() * scrollMultiplier;
 
         final boolean tooHigh = yPos > 0;
         final boolean tooLow = yPos < lowestPos;
@@ -104,25 +98,31 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
     @Override
     public void mousePressed(MouseEvent e) {
-        pressIndex = indexOf(e.getPoint());
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        final int releaseIndex = indexOf(e.getPoint());
 
-        swapPanels(pressIndex, releaseIndex);
     }
 
     private void swapPanels(final int p1, final int p2) {
-        GameList.swap(p1, p2);
+        if (p1 == p2)
+            return;
 
+        GameList.swap(p1, p2);
         panelArray[p1].update();
         panelArray[p2].update();
     }
 
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
+
     // Below methods MUST be implemented, but produce no side effects or return values and can therefore be ignored.
-    @Override public void mouseEntered(MouseEvent e) {}
-    @Override public void mouseExited(MouseEvent e) {}
-    @Override public void mouseClicked(MouseEvent e) {}
+    @Override public void mouseEntered(MouseEvent ignored) {}
+    @Override public void mouseExited(MouseEvent ignored) {}
+    @Override public void mouseClicked(MouseEvent ignored) {}
+    @Override public void mouseDragged(MouseEvent ignored) {}
 }

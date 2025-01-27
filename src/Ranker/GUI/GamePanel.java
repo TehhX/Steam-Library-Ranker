@@ -13,6 +13,7 @@ public class GamePanel extends Panel {
     public static final int height = 150;
     public static final int topMargin = height + 15;
     public static final int leftMargin = (Window.FRAME_SIZE_X - width) / 2;
+    public final Rectangle regularBounds;
 
     private final WrappedLabel gameLabel;
     private final int gameIndex;
@@ -22,7 +23,8 @@ public class GamePanel extends Panel {
 
         this.gameIndex = gameIndex;
 
-        setBounds(leftMargin, 10 + topMargin * gameIndex, width, height);
+        regularBounds = new Rectangle(leftMargin, 10 + topMargin * gameIndex, width, height);
+        setBounds(regularBounds);
 
         gameLabel = new WrappedLabel(GameList.nameOf(gameIndex));
 

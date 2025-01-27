@@ -9,6 +9,7 @@ import Ranker.GUI.Scenes.Rank;
 import javax.swing.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 
 public class Window {
@@ -66,6 +67,9 @@ public class Window {
 
         if (scene instanceof MouseListener)
             frame.addMouseListener((MouseListener) scene);
+
+        if (scene instanceof MouseMotionListener)
+            frame.addMouseMotionListener((MouseMotionListener) scene);
     }
 
     public static void removeListeners(final Scene scene) {
@@ -77,5 +81,8 @@ public class Window {
 
         if (scene instanceof MouseListener)
             frame.removeMouseListener((MouseListener) scene);
+
+        if (scene instanceof MouseMotionListener)
+            frame.removeMouseMotionListener((MouseMotionListener) scene);
     }
 }
