@@ -31,7 +31,7 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         panelArray = new GamePanel[GameList.length()];
 
         for (int i = 0; i < panelArray.length; i++) {
-            panelArray[i] = new GamePanel(GameList.getGame(i), 10 + GamePanel.topMargin * i);
+            panelArray[i] = new GamePanel(i, 10 + GamePanel.topMargin * i);
             innerPanel.add(panelArray[i]);
         }
 
@@ -56,9 +56,10 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     }
 
     private void swapPanels(final int p1, final int p2) {
-        final Game temp = panelArray[p1].getGame();
-        panelArray[p1].setGame(panelArray[p2].getGame());
-        panelArray[p2].setGame(temp);
+        final int tempIndex = panelArray[p1].getGameIndex();
+
+        panelArray[p1].setGameIndex(panelArray[p2].getGameIndex());
+        panelArray[p2].setGameIndex(tempIndex);
     }
 
     public static void clearPanelArray() {
