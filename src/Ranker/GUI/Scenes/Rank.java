@@ -7,10 +7,12 @@ import Ranker.GUI.Basic.Scene;
 import Ranker.GUI.GamePanel;
 import Ranker.GUI.Window;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-public class Rank extends Scene implements SceneChangeActions, MouseWheelListener {
+public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, KeyListener {
     private static final int scrollMultiplier = 30;
 
     private static GamePanel[] panelArray;
@@ -96,4 +98,17 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
         setScrolledBounds(yPos);
     }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        final int num = Character.getNumericValue(e.getKeyChar());
+
+        if (num < 0 || num > 9)
+            return;
+
+        swapPanels(num, num + 1);
+    }
+
+    @Override public void keyTyped(KeyEvent e) {}
+    @Override public void keyReleased(KeyEvent e) {}
 }
