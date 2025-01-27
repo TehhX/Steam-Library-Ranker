@@ -46,18 +46,12 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
 
     @Override
     public void actionPerformed(ActionEvent ignored) {
-        final boolean debug = true;
         String id;
 
-        if (debug)
+        if (true)
             id = "76561198284660364";
         else
             id = inputField.getText().trim();
-
-        if (id.length() != 17) {
-            showError("Incorrect SteamID64. Check your input.");
-            return;
-        }
 
         Window.changeScene(SceneID.Loading);
 
@@ -67,19 +61,13 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
     }
 
     private void runIntake(final String id) {
-        final int returnCode = Intake.downloadUserLibrary(id);
-
-        if (returnCode == 0)
+        try {
+            Intake.downloadUserLibrary(id);
             Window.changeScene(SceneID.Rank);
-
-        else if (returnCode == 1) {
-            Window.changeScene(SceneID.Input);
-            showError("Server/Steam error. Try again later.");
         }
-
-        else if (returnCode == 2) {
+        catch (RuntimeException re) {
             Window.changeScene(SceneID.Input);
-            showError("Incorrect SteamID64. Check your input.");
+            showError(re.getMessage());
         }
     }
 }

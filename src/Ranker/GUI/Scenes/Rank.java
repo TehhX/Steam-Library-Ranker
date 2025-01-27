@@ -1,17 +1,16 @@
 package Ranker.GUI.Scenes;
 
+import Ranker.Data.Game;
 import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Panel;
 import Ranker.GUI.Basic.Scene;
 import Ranker.GUI.GamePanel;
 import Ranker.GUI.Window;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+import java.awt.*;
+import java.awt.event.*;
 
-public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, KeyListener {
+public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, KeyListener, MouseListener {
     private static final int scrollMultiplier = 35;
 
     private static GamePanel[] panelArray;
@@ -68,6 +67,16 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         panelArray[p2].update();
     }
 
+    private int indexOf(final Point point) {
+        // Account for the scrolled distance
+        point.y -= innerPanel.getY();
+
+        if (point.x < GamePanel.leftMargin || point.x > GamePanel.leftMargin + GamePanel.width)
+            return -1;
+
+        return (int) Math.floor((point.y - 10.0) / GamePanel.topMargin);
+    }
+
     @Override
     public void addActions() {
         refresh();
@@ -114,4 +123,29 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
     @Override public void keyTyped(KeyEvent e) {}
     @Override public void keyReleased(KeyEvent e) {}
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println(GameList.nameOf(indexOf(e.getPoint())));
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

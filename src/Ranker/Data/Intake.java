@@ -17,14 +17,17 @@ public class Intake {
     private static final int nonGameCount = 84;
 
     /// This load factor ensures nonGames will not try to rehash itself unnecessarily.
-    private static final float loadFactor = 1.0f;
+    private static final float loadFactor = 1.1f;
 
     /// A set of non-games that will not be included in the ranking.
     private static final Set<Integer> nonGames = new HashSet<>(nonGameCount, loadFactor);
 
     /// Downloads the user library associated with the userID into GameList.
-    public static int downloadUserLibrary(final String userID) {
+    public static void downloadUserLibrary(final String userID) throws RuntimeException {
         clearAll();
+
+        if (userID.length() != 17)
+            throw new RuntimeException("SteamID is " + (userID.length() > 17 ? "too long." : "too short."));
 
         Document document;
 
@@ -36,11 +39,11 @@ public class Intake {
             document.getDocumentElement().normalize();
         }
         catch (Exception e) {
-            return 1;
+            throw new RuntimeException("Could not download XML file from Steam servers.");
         }
 
         if (document.getElementsByTagName("error").getLength() != 0)
-            return 2;
+            throw new RuntimeException("Profile ID malformed, library private, or other profile specific error.");
 
         final NodeList namesList = document.getElementsByTagName("name");
         final NodeList idList = document.getElementsByTagName("appID");
@@ -58,8 +61,6 @@ public class Intake {
                 GameList.add(gameName, gameID);
             }
         }
-
-        return 0;
     }
 
     /// Checks to see if the two passed nodes are both elements, returns result.
@@ -88,23 +89,23 @@ public class Intake {
             throw new RuntimeException(e);
         }
 
-        // Use when updating non-game list to get new nonGameCount.
-        // System.out.println(nonGames.size());
+        if (nonGames.size() != nonGameCount)
+            throw new RuntimeException("Incorrect non-game count. Should be " + nonGames.size() + ".");
     }
 
     /// Clears everything, suggests that the VM runs GC.
     private static void clearAll() {
-        // Clear the GameList
+        // Clear the GameList.
         GameList.clear();
 
-        // Clear the panel array
+        // Clear the panel array.
         Rank.clearPanelArray();
 
-        // Clear and reload non-games
+        // Clear and reload non-game list.
         nonGames.clear();
         loadNonGames();
 
-        // Suggest running garbage collector
+        // Suggest running garbage collector.
         System.gc();
     }
 }

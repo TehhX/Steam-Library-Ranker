@@ -22,6 +22,7 @@ public class GamePanel extends Panel {
 
         this.gameIndex = gameIndex;
 
+        // (y - 10) / topMargin = i
         setBounds(leftMargin, 10 + topMargin * gameIndex, width, height);
 
         gameLabel = new WrappedLabel(GameList.nameOf(gameIndex));
