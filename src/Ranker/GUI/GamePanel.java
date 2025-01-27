@@ -13,7 +13,7 @@ public class GamePanel extends Panel {
     public static final int height = 150;
     public static final int topMargin = height + 15;
     public static final int leftMargin = (Window.FRAME_SIZE_X - width) / 2;
-    public final Rectangle regularBounds;
+    public final Point regularPos;
 
     private final WrappedLabel gameLabel;
     private final int gameIndex;
@@ -22,9 +22,9 @@ public class GamePanel extends Panel {
         super(false);
 
         this.gameIndex = gameIndex;
+        regularPos = new Point(leftMargin, 10 + topMargin * gameIndex);
 
-        regularBounds = new Rectangle(leftMargin, 10 + topMargin * gameIndex, width, height);
-        setBounds(regularBounds);
+        setPosition(regularPos);
 
         gameLabel = new WrappedLabel(GameList.nameOf(gameIndex));
 
@@ -39,8 +39,16 @@ public class GamePanel extends Panel {
         final String normName = GameList.nameOf(gameIndex);
         final String wrapName = WrappedLabel.getWrappedText(normName);
 
-        setBounds(regularBounds);
+        setPosition(regularPos);
 
         gameLabel.setText(wrapName);
+    }
+
+    public void setPosition(final int x, final int y) {
+        setBounds(x, y, GamePanel.width, GamePanel.height);
+    }
+
+    public void setPosition(final Point point) {
+        setPosition(point.x, point.y);
     }
 }

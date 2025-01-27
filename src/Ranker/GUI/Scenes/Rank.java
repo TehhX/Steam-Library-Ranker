@@ -1,6 +1,5 @@
 package Ranker.GUI.Scenes;
 
-import Ranker.Data.Game;
 import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Panel;
 import Ranker.GUI.Basic.Scene;
@@ -100,20 +99,11 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         setScrolledBounds(yPos);
     }
 
-    private void swapPanels(final int p1, final int p2) {
-        if (p1 == p2)
-            return;
-
-        GameList.swap(p1, p2);
-        panelArray[p1].update();
-        panelArray[p2].update();
-    }
-
     @Override
     public void mousePressed(MouseEvent e) {
         initialPos = e.getPoint();
         initialIndex = indexOf(initialPos);
-        setComponentZOrder(panelArray[initialIndex], 0);
+        innerPanel.setComponentZOrder(panelArray[initialIndex], 0);
     }
 
     @Override
@@ -125,26 +115,26 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
             return;
         }
 
-        swapPanels(initialIndex, finalIndex);
+        GameList.nudge(initialIndex, finalIndex);
+
+        final int start = Math.min(initialIndex, finalIndex);
+        final int end = initialIndex == start ? finalIndex : initialIndex;
+
+        for (int i = start; i <= end; i++)
+            panelArray[i].update();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        panelArray[initialIndex].setBounds(
+        panelArray[initialIndex].setPosition(
             e.getX() - initialPos.x + GamePanel.leftMargin,
-            e.getY() - innerPanel.getY() - initialPos.y + panelArray[initialIndex].regularBounds.y,
-            GamePanel.width,
-            GamePanel.height
+            e.getY() - innerPanel.getY() - initialPos.y + panelArray[initialIndex].regularPos.y
         );
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
     }
 
     // Below methods MUST be implemented, but produce no side effects or return values and can therefore be ignored.
     @Override public void mouseEntered(MouseEvent ignored) {}
     @Override public void mouseExited(MouseEvent ignored) {}
     @Override public void mouseClicked(MouseEvent ignored) {}
+    @Override public void mouseMoved(MouseEvent e) {}
 }

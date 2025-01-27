@@ -25,14 +25,12 @@ public class GameList {
         return gameArrayList.size();
     }
 
-    public static void swap(final int i1, final int i2) {
-        if (i1 == i2)
-            return;
+    /// Nudges an element into another position
+    public static void nudge(final int take, final int put) {
+        final Game temp = gameArrayList.get(take);
 
-        final Game temp = gameArrayList.get(i1);
-
-        gameArrayList.set(i1, gameArrayList.get(i2));
-        gameArrayList.set(i2, temp);
+        gameArrayList.remove(take);
+        gameArrayList.add(put, temp);
     }
 
     public static String getListPaired() {
