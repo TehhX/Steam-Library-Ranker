@@ -1,6 +1,5 @@
 package Ranker.GUI.Scenes;
 
-import Ranker.Data.Game;
 import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Panel;
 import Ranker.GUI.Basic.Scene;
@@ -57,15 +56,15 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         );
     }
 
-    private void swapPanels(final int p1, final int p2) {
-        final int tempIndex = panelArray[p1].getGameIndex();
-
-        panelArray[p1].setGameIndex(panelArray[p2].getGameIndex());
-        panelArray[p2].setGameIndex(tempIndex);
-    }
-
     public static void clearPanelArray() {
         panelArray = null;
+    }
+
+    private void swapPanels(final int p1, final int p2) {
+        GameList.swap(p1, p2);
+
+        panelArray[p1].update();
+        panelArray[p2].update();
     }
 
     @Override
@@ -102,6 +101,9 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     @Override
     public void keyPressed(KeyEvent e) {
         final int num = Character.getNumericValue(e.getKeyChar());
+
+        if (e.getKeyChar() == 'e')
+            System.out.println(GameList.getListPlain());
 
         if (num < 0 || num > 9)
             return;

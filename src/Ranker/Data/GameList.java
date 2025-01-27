@@ -25,8 +25,10 @@ public class GameList {
         return gameArrayList.size();
     }
 
-    public static Game getGame(final int index) {
-        return gameArrayList.get(index);
+    public static void swap(final int i1, final int i2) {
+        final Game temp = gameArrayList.get(i1);
+        gameArrayList.set(i1, gameArrayList.get(i2));
+        gameArrayList.set(i2, temp);
     }
 
     public static String getListPaired() {

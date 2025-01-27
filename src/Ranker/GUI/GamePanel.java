@@ -1,6 +1,5 @@
 package Ranker.GUI;
 
-import Ranker.Data.Game;
 import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Panel;
 import Ranker.GUI.Basic.WrappedLabel;
@@ -34,12 +33,7 @@ public class GamePanel extends Panel {
         }));
     }
 
-    public void setGameIndex(final int gameIndex) {
-        this.gameIndex = gameIndex;
-        gameLabel.setText(WrappedLabel.getWrappedText(GameList.nameOf(gameIndex)));
-    }
-
-    public int getGameIndex() {
-        return gameIndex;
+    public void update() {
+        gameLabel.setText(GameList.nameOf(gameIndex));
     }
 }
