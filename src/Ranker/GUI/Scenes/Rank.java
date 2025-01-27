@@ -61,13 +61,6 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         panelArray = null;
     }
 
-    private void swapPanels(final int p1, final int p2) {
-        GameList.swap(p1, p2);
-
-        panelArray[p1].update();
-        panelArray[p2].update();
-    }
-
     private int indexOf(final Point point) {
         // Account for the scrolled distance
         point.y -= innerPanel.getY();
@@ -110,11 +103,6 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
     public void mousePressed(MouseEvent e) {
         pressIndex = indexOf(e.getPoint());
     }
@@ -122,16 +110,19 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     @Override
     public void mouseReleased(MouseEvent e) {
         final int releaseIndex = indexOf(e.getPoint());
+
         swapPanels(pressIndex, releaseIndex);
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
+    private void swapPanels(final int p1, final int p2) {
+        GameList.swap(p1, p2);
 
+        panelArray[p1].update();
+        panelArray[p2].update();
     }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    // Below methods MUST be implemented, but produce no side effects or return values and can therefore be ignored.
+    @Override public void mouseEntered(MouseEvent e) {}
+    @Override public void mouseExited(MouseEvent e) {}
+    @Override public void mouseClicked(MouseEvent e) {}
 }
