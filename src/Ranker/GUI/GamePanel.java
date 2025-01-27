@@ -39,6 +39,8 @@ public class GamePanel extends Panel {
         final String normName = GameList.nameOf(gameIndex);
         final String wrapName = WrappedLabel.getWrappedText(normName);
 
+        setBounds(regularBounds);
+
         gameLabel.setText(wrapName);
     }
 }

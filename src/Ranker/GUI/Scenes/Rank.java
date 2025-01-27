@@ -1,5 +1,6 @@
 package Ranker.GUI.Scenes;
 
+import Ranker.Data.Game;
 import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Panel;
 import Ranker.GUI.Basic.Scene;
@@ -13,6 +14,9 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     private static final int scrollMultiplier = 35;
 
     private static GamePanel[] panelArray;
+
+    private static Point initialPos;
+    private static int initialIndex;
 
     /// The panel which contains all GamePanels, and is moved by scrolling.
     private Panel innerPanel = new Panel(false);
@@ -96,16 +100,6 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         setScrolledBounds(yPos);
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
     private void swapPanels(final int p1, final int p2) {
         if (p1 == p2)
             return;
@@ -113,6 +107,35 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         GameList.swap(p1, p2);
         panelArray[p1].update();
         panelArray[p2].update();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        initialPos = e.getPoint();
+        initialIndex = indexOf(initialPos);
+        setComponentZOrder(panelArray[initialIndex], 0);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        final int finalIndex = indexOf(e.getPoint());
+
+        if (finalIndex == -1 || initialIndex == finalIndex) {
+            panelArray[initialIndex].update();
+            return;
+        }
+
+        swapPanels(initialIndex, finalIndex);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        panelArray[initialIndex].setBounds(
+            e.getX() - initialPos.x + GamePanel.leftMargin,
+            e.getY() - innerPanel.getY() - initialPos.y + panelArray[initialIndex].regularBounds.y,
+            GamePanel.width,
+            GamePanel.height
+        );
     }
 
     @Override
@@ -124,5 +147,4 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     @Override public void mouseEntered(MouseEvent ignored) {}
     @Override public void mouseExited(MouseEvent ignored) {}
     @Override public void mouseClicked(MouseEvent ignored) {}
-    @Override public void mouseDragged(MouseEvent ignored) {}
 }
