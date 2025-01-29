@@ -102,6 +102,7 @@ public class Intake {
         Rank.clearPanelArray();
 
         // Clear and reload non-game list.
+        // TODO: Change how loading nongames works, and when it occurs.
         nonGames.clear();
         loadNonGames();
 
