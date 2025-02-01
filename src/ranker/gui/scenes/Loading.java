@@ -1,6 +1,6 @@
-package Ranker.GUI.Scenes;
+package ranker.gui.scenes;
 
-import Ranker.GUI.Basic.Scene;
+import ranker.gui.basic.Scene;
 
 import javax.swing.*;
 

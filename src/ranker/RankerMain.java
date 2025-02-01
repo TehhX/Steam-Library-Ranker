@@ -1,7 +1,7 @@
-package Ranker;
+package ranker;
 
-import Ranker.Data.Intake;
-import Ranker.GUI.Window;
+import ranker.data.Intake;
+import ranker.gui.Window;
 
 public class RankerMain {
     public static void main(String[] args) {

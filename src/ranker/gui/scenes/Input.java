@@ -1,9 +1,9 @@
-package Ranker.GUI.Scenes;
+package ranker.gui.scenes;
 
-import Ranker.Data.Intake;
-import Ranker.GUI.Basic.Scene;
-import Ranker.GUI.SceneID;
-import Ranker.GUI.Window;
+import ranker.data.Intake;
+import ranker.gui.basic.Scene;
+import ranker.gui.SceneID;
+import ranker.gui.Window;
 
 import javax.swing.*;
 import java.awt.*;

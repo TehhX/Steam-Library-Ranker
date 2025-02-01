@@ -1,6 +1,6 @@
-package Ranker.GUI.Basic;
+package ranker.gui.basic;
 
-import Ranker.GUI.Window;
+import ranker.gui.Window;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class Panel extends JPanel {
 
         setBackground(null);
         setOpaque(opaque);
-        setSize(Ranker.GUI.Window.FRAME_SIZE_X, Window.FRAME_SIZE_Y);
+        setSize(ranker.gui.Window.FRAME_SIZE_X, Window.FRAME_SIZE_Y);
     }
 
     public Panel(final boolean opaque) {

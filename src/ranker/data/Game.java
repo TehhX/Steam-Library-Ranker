@@ -1,4 +1,4 @@
-package Ranker.Data;
+package ranker.data;
 
 /// A data class for storing the name and appID of a Steam game.
 public class Game {

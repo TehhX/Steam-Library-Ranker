@@ -1,10 +1,10 @@
-package Ranker.GUI;
+package ranker.gui;
 
-import Ranker.GUI.Basic.Scene;
-import Ranker.GUI.Scenes.Input;
-import Ranker.GUI.Scenes.Loading;
-import Ranker.GUI.Scenes.Output;
-import Ranker.GUI.Scenes.Rank;
+import ranker.gui.basic.Scene;
+import ranker.gui.scenes.Input;
+import ranker.gui.scenes.Loading;
+import ranker.gui.scenes.Output;
+import ranker.gui.scenes.Rank;
 
 import javax.swing.*;
 import java.awt.event.KeyListener;

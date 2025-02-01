@@ -1,6 +1,6 @@
-package Ranker.Data;
+package ranker.data;
 
-import Ranker.GUI.Window;
+import ranker.gui.Window;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

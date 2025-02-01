@@ -1,4 +1,4 @@
-package Ranker.GUI;
+package ranker.gui;
 
 /// Names of scenes for scene changing
 public enum SceneID {

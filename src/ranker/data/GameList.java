@@ -1,4 +1,4 @@
-package Ranker.Data;
+package ranker.data;
 
 import java.util.ArrayList;
 

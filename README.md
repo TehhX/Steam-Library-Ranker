@@ -1,6 +1,6 @@
 # NOT FINISHED!!!
 
-## Steam Library Ranker
+## Steam Library ranker
 
 ### _Rank your Steam games_
 

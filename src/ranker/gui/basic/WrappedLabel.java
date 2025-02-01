@@ -1,6 +1,6 @@
-package Ranker.GUI.Basic;
+package ranker.gui.basic;
 
-import Ranker.GUI.GamePanel;
+import ranker.gui.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,8 @@
-package Ranker.GUI;
+package ranker.gui;
 
-import Ranker.Data.GameList;
-import Ranker.GUI.Basic.Panel;
-import Ranker.GUI.Basic.WrappedLabel;
+import ranker.data.GameList;
+import ranker.gui.basic.Panel;
+import ranker.gui.basic.WrappedLabel;
 
 import java.awt.*;
 
