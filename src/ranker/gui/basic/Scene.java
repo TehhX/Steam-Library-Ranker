@@ -3,20 +3,20 @@ package ranker.gui.basic;
 import ranker.gui.scenes.SceneChangeActions;
 import ranker.gui.Window;
 
+import java.awt.*;
+
 public class Scene extends Panel {
     private SceneChangeActions changeActions = null;
 
-    public Scene(final boolean opaque) {
-        super(opaque);
+    public Scene() {
+        super(true);
+
+        setBackground(Color.DARK_GRAY);
 
         if (this instanceof SceneChangeActions)
-            addChangeActions((SceneChangeActions) this);
+            this.changeActions = (SceneChangeActions) this;
 
         setVisible(false);
-    }
-
-    public void addChangeActions(final SceneChangeActions changeActions) {
-        this.changeActions = changeActions;
     }
 
     /// Code to execute when adding a scene to the frame.

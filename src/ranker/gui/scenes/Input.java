@@ -14,12 +14,10 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
     private final JTextField inputField = new JTextField();
 
     public Input() {
-        super(true);
-
         inputField.setFont(new Font("Monospaced", Font.PLAIN, 15));
         inputField.setBorder(null);
         inputField.setBackground(null);
-        inputField.setForeground(Color.black);
+        inputField.setForeground(Color.white);
         inputField.setFocusable(true);
         inputField.setBounds(100, 100, 500, 500);
 

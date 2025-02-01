@@ -18,8 +18,6 @@ public class Output extends Scene implements ActionListener {
     private JButton printSteamButton = new JButton("Print Steam Formatted");
 
     public Output() {
-        super(true);
-
         rankButton.setBounds(100, 100, 140, 30);
         rankButton.addActionListener(this);
         add(rankButton);

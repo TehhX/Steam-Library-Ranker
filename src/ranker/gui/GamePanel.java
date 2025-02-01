@@ -11,13 +11,13 @@ public class GamePanel extends Panel {
     public static final int arc = 40;
     public static final int width = 600;
     public static final int height = 75;
-    public static final int topMargin = height + 15;
+    public static final int topMargin = height + 10;
     public static final int leftMargin = (Window.FRAME_SIZE_X - width) / 2;
 
     // Various instance-wide GamePanel constants
     private final Point regularPos;
     private final int gameIndex;
-
+    private final Color backgroundColor;
     private final WrappedLabel gameLabel;
 
     public GamePanel(final int gameIndex) {
@@ -30,9 +30,12 @@ public class GamePanel extends Panel {
 
         gameLabel = new WrappedLabel(GameList.nameOf(gameIndex));
 
+        final boolean isEven = gameIndex % 2 == 0;
+        backgroundColor = new Color(isEven ? 15583569 : 41136);
+
         add(gameLabel);
         add(new Panel(false, g -> {
-            g.setColor(new Color(157, 42, 234));
+            g.setColor(backgroundColor);
             g.fillRoundRect(0, 0, width, height, arc, arc);
         }));
     }
@@ -49,8 +52,8 @@ public class GamePanel extends Panel {
         setBounds(x, y, GamePanel.width, GamePanel.height);
     }
 
-    public void setPosition(final Point point) {
-        setPosition(point.x, point.y);
+    public void setPosition(final Point p) {
+        setPosition(p.x, p.y);
     }
 
     public int getRegularY() {

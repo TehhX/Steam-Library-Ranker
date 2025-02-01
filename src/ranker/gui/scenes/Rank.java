@@ -21,8 +21,6 @@ public class Rank extends Scene implements MouseWheelListener, MouseListener, Mo
     private Panel innerPanel = new Panel(false);
 
     public Rank() {
-        super(true);
-
         JButton outputButton = new JButton("Output");
         outputButton.setBounds(1000, 300, 100, 30);
         outputButton.addActionListener(this);
@@ -47,7 +45,7 @@ public class Rank extends Scene implements MouseWheelListener, MouseListener, Mo
     }
 
     private int getMaxHeight() {
-        return GamePanel.topMargin * panelArray.length + 5;
+        return GamePanel.topMargin * panelArray.length + 50;
     }
 
     private void setScrolledBounds(final int newYPos) {
@@ -71,19 +69,19 @@ public class Rank extends Scene implements MouseWheelListener, MouseListener, Mo
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        // The scroll multiplier multiplies how far a single mouse-wheel tick scrolls by.
         final int scrollMultiplier = 35;
 
         final int lowestPos = Window.FRAME_SIZE_Y - getMaxHeight();
         final int yPos = innerPanel.getY() - e.getWheelRotation() * scrollMultiplier;
 
         final boolean tooHigh = yPos > 0;
-        final boolean tooLow = yPos < lowestPos;
-
         if (tooHigh) {
             setScrolledBounds(0);
-            return;
+            return; 
         }
 
+        final boolean tooLow = yPos < lowestPos;
         if (tooLow) {
             setScrolledBounds(lowestPos);
             return;
