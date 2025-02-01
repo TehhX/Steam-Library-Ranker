@@ -1,6 +1,6 @@
 package Ranker.Data;
 
-import Ranker.GUI.Scenes.Rank;
+import Ranker.GUI.Window;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -16,16 +16,11 @@ public class Intake {
     /// Non-game count, for the nonGames size. Update when adding new non-games.
     private static final int nonGameCount = 84;
 
-    /// This load factor ensures nonGames will not try to rehash itself unnecessarily.
-    private static final float loadFactor = 1.1f;
-
     /// A set of non-games that will not be included in the ranking.
-    private static final Set<Integer> nonGames = new HashSet<>(nonGameCount, loadFactor);
+    private static final Set<Integer> nonGames = new HashSet<>(nonGameCount, 1.1f);
 
     /// Downloads the user library associated with the userID into GameList.
     public static void downloadUserLibrary(final String userID) throws RuntimeException {
-        clearAll();
-
         if (userID.length() != 17)
             throw new RuntimeException("SteamID is " + (userID.length() > 17 ? "too long." : "too short."));
 
@@ -50,23 +45,23 @@ public class Intake {
 
         final int lastIndex = Math.min(namesList.getLength(), idList.getLength());
 
+        if (lastIndex < 2)
+            throw new RuntimeException("There are not enough games to rank in the given profile.");
+
         for (int i = 0; i < lastIndex; i++) {
             Node name = namesList.item(i);
             Node id = idList.item(i);
 
-            if (areElements(name, id) && isGame(id)) {
+            // Will skip entry if it is found in the non-games list.
+            if (isGame(id)) {
                 final String gameName = name.getTextContent();
                 final int gameID = Integer.parseInt(id.getTextContent());
 
                 GameList.add(gameName, gameID);
             }
         }
-    }
 
-    /// Checks to see if the two passed nodes are both elements, returns result.
-    private static boolean areElements(Node n1, Node n2) {
-        return n1.getNodeType() == Node.ELEMENT_NODE &&
-               n2.getNodeType() == Node.ELEMENT_NODE;
+        Window.refreshRank();
     }
 
     /// Checks the appID against the list of non-games, returns true if it is a game.
@@ -74,9 +69,10 @@ public class Intake {
         return !nonGames.contains(Integer.parseInt(idNode.getTextContent()));
     }
 
+    /// Loads the set of non-games from Non Games.txt for downloadUserLibrary to skip over.
     public static void loadNonGames() {
         try {
-            final Scanner sc = new Scanner(new File("nonGames.txt"));
+            final Scanner sc = new Scanner(new File("Resources/Non Games.txt"));
 
             while (sc.hasNext()) {
                 final String next = sc.nextLine();
@@ -91,22 +87,5 @@ public class Intake {
 
         if (nonGames.size() != nonGameCount)
             throw new RuntimeException("Incorrect non-game count. Should be " + nonGames.size() + ".");
-    }
-
-    /// Clears everything, suggests that the VM runs GC.
-    private static void clearAll() {
-        // Clear the GameList.
-        GameList.clear();
-
-        // Clear the panel array.
-        Rank.clearPanelArray();
-
-        // Clear and reload non-game list.
-        // TODO: Change how loading nongames works, and when it occurs.
-        nonGames.clear();
-        loadNonGames();
-
-        // Suggest running garbage collector.
-        System.gc();
     }
 }

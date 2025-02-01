@@ -10,13 +10,13 @@ public class GamePanel extends Panel {
     // Various global GamePanel constants
     public static final int arc = 40;
     public static final int width = 600;
-    public static final int height = 150;
+    public static final int height = 75;
     public static final int topMargin = height + 15;
     public static final int leftMargin = (Window.FRAME_SIZE_X - width) / 2;
 
     // Various instance-wide GamePanel constants
-    public final Point regularPos;
-    public final int gameIndex;
+    private final Point regularPos;
+    private final int gameIndex;
 
     private final WrappedLabel gameLabel;
 
@@ -51,5 +51,9 @@ public class GamePanel extends Panel {
 
     public void setPosition(final Point point) {
         setPosition(point.x, point.y);
+    }
+
+    public int getRegularY() {
+        return regularPos.y;
     }
 }

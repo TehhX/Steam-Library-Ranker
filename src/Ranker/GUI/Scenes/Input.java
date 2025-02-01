@@ -26,35 +26,30 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
         add(inputField);
     }
 
-    private void showError(final String msg) {
-        JOptionPane.showMessageDialog(null, msg);
-        inputField.requestFocusInWindow();
-        inputField.selectAll();
-    }
-
     @Override
     public void addActions() {
+        inputField.setText("Enter SteamID64");
+        inputField.selectAll();
         SwingUtilities.invokeLater(inputField::requestFocusInWindow);
         inputField.addActionListener(this);
     }
 
     @Override
     public void removeActions() {
-        inputField.setText("");
         inputField.removeActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent ignored) {
-        @SuppressWarnings("ConstantConditionalExpression")
+        // Use my own SteamID if debug is true.
+        final boolean debug = true;
 
-        // Ternary boolean changes debug mode on and off.
-        final String id = (true ? "76561198284660364" : inputField.getText().trim());
-
+        final String id = (debug ? "76561198284660364" : inputField.getText().trim());
         Window.changeScene(SceneID.Loading);
         SwingUtilities.invokeLater(() -> runIntake(id));
     }
 
+    /// Runs the intake method from the Intake class with a passed SteamID64, displays errors if they occur.
     private void runIntake(final String id) {
         try {
             Intake.downloadUserLibrary(id);
@@ -62,7 +57,11 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
         }
         catch (RuntimeException re) {
             Window.changeScene(SceneID.Input);
-            showError(re.getMessage());
+
+            // Show an error popup
+            JOptionPane.showMessageDialog(null, re.getMessage());
+            inputField.requestFocusInWindow();
+            inputField.selectAll();
         }
     }
 }

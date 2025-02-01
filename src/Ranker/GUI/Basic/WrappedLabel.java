@@ -6,18 +6,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WrappedLabel extends JLabel {
-    private static final int maxCharsPerLine = 27;
+    private static final int maxCharsPerLine = 32;
 
     public WrappedLabel(final String text) {
-        super();
+        super(getWrappedText(text));
 
-        setFont(new Font("Monospaced", Font.PLAIN, 30));
+        setFont(new Font("Monospaced", Font.PLAIN, 25));
         setForeground(Color.black);
         setBackground(null);
         setOpaque(false);
         setBorder(null);
         setBounds(50, 0, GamePanel.width, GamePanel.height);
-        setText(getWrappedText(text));
     }
 
     public static String getWrappedText(final String text) {

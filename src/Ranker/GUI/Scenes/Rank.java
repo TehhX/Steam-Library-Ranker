@@ -4,24 +4,29 @@ import Ranker.Data.GameList;
 import Ranker.GUI.Basic.Panel;
 import Ranker.GUI.Basic.Scene;
 import Ranker.GUI.GamePanel;
+import Ranker.GUI.SceneID;
 import Ranker.GUI.Window;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Rank extends Scene implements SceneChangeActions, MouseWheelListener, MouseListener, MouseMotionListener {
-    private static final int scrollMultiplier = 35;
+public class Rank extends Scene implements MouseWheelListener, MouseListener, MouseMotionListener, ActionListener {
+    private GamePanel[] panelArray;
 
-    private static GamePanel[] panelArray;
-
-    private static Point initialPos;
-    private static int initialIndex;
+    private Point initialPos;
+    private int initialIndex;
 
     /// The panel which contains all GamePanels, and is moved by scrolling.
     private Panel innerPanel = new Panel(false);
 
     public Rank() {
         super(true);
+
+        JButton outputButton = new JButton("Output");
+        outputButton.setBounds(1000, 300, 100, 30);
+        outputButton.addActionListener(this);
+        add(outputButton);
 
         add(innerPanel);
     }
@@ -54,10 +59,6 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         );
     }
 
-    public static void clearPanelArray() {
-        panelArray = null;
-    }
-
     private int indexOf(final Point point) {
         // Account for the scrolled distance
         point.y -= innerPanel.getY();
@@ -65,21 +66,13 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
         if (point.x < GamePanel.leftMargin || point.x > GamePanel.leftMargin + GamePanel.width)
             return -1;
 
-        return (int) Math.floor((point.y - 10.0) / GamePanel.topMargin);
-    }
-
-    @Override
-    public void addActions() {
-        refresh();
-    }
-
-    @Override
-    public void removeActions() {
-        clearPanelArray();
+        return (int) ((point.y - 10.0) / GamePanel.topMargin);
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        final int scrollMultiplier = 35;
+
         final int lowestPos = Window.FRAME_SIZE_Y - getMaxHeight();
         final int yPos = innerPanel.getY() - e.getWheelRotation() * scrollMultiplier;
 
@@ -103,13 +96,21 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
     public void mousePressed(MouseEvent e) {
         initialPos = e.getPoint();
         initialIndex = indexOf(initialPos);
+
+        if (initialIndex == -1)
+            return;
+
         innerPanel.setComponentZOrder(panelArray[initialIndex], 0);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (initialIndex == -1)
+            return;
+
         final int finalIndex = indexOf(e.getPoint());
 
+        // If mouse wasn't moved from start, or was moved out of the width of game panels, put the panel back and return.
         if (finalIndex == -1 || initialIndex == finalIndex) {
             panelArray[initialIndex].update();
             return;
@@ -117,24 +118,33 @@ public class Rank extends Scene implements SceneChangeActions, MouseWheelListene
 
         GameList.nudge(initialIndex, finalIndex);
 
+        // Only update panels between start and end indices.
         final int start = Math.min(initialIndex, finalIndex);
-        final int end = initialIndex == start ? finalIndex : initialIndex;
-
+        final int end = Math.max(initialIndex, finalIndex);
         for (int i = start; i <= end; i++)
             panelArray[i].update();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        if (initialIndex == -1)
+            return;
+
+        // Set the position of the panel relative to the starting position of the cursor and scroll of the innerPanel.
         panelArray[initialIndex].setPosition(
             e.getX() - initialPos.x + GamePanel.leftMargin,
-            e.getY() - innerPanel.getY() - initialPos.y + panelArray[initialIndex].regularPos.y
+            e.getY() - innerPanel.getY() - initialPos.y + panelArray[initialIndex].getRegularY()
         );
     }
 
+    @Override
+    public void actionPerformed(ActionEvent ignored) {
+        Window.changeScene(SceneID.Output);
+    }
+
     // Below methods MUST be implemented, but produce no side effects or return values and can therefore be ignored.
-    @Override public void mouseEntered(MouseEvent ignored) {}
-    @Override public void mouseExited(MouseEvent ignored) {}
-    @Override public void mouseClicked(MouseEvent ignored) {}
-    @Override public void mouseMoved(MouseEvent e) {}
+        @Override public void mouseEntered(MouseEvent ignored) {}
+        @Override public void mouseExited(MouseEvent ignored) {}
+        @Override public void mouseClicked(MouseEvent ignored) {}
+        @Override public void mouseMoved(MouseEvent ignored) {}
 }
