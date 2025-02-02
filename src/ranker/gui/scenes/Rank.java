@@ -98,6 +98,7 @@ public class Rank extends Scene implements MouseWheelListener, MouseListener, Mo
         if (initialIndex == -1)
             return;
 
+        panelArray[initialIndex].setTransparent();
         innerPanel.setComponentZOrder(panelArray[initialIndex], 0);
     }
 
@@ -121,6 +122,8 @@ public class Rank extends Scene implements MouseWheelListener, MouseListener, Mo
         final int end = Math.max(initialIndex, finalIndex);
         for (int i = start; i <= end; i++)
             panelArray[i].update();
+
+        initialIndex = -1;
     }
 
     @Override

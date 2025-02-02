@@ -11,7 +11,7 @@ public class WrappedLabel extends JLabel {
     public WrappedLabel(final String text) {
         super();
 
-        setFont(new Font("Monospaced", Font.PLAIN, 25));
+        setFont(new Font("Monospaced", Font.BOLD, 25));
         setForeground(Color.black);
         setBackground(null);
         setOpaque(false);

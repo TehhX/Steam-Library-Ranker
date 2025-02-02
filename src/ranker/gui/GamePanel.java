@@ -17,7 +17,7 @@ public class GamePanel extends Panel {
     // Various instance-wide GamePanel constants
     private final Point regularPos;
     private final int gameIndex;
-    private final Color backgroundColor;
+    private Color backgroundColor;
     private final WrappedLabel gameLabel;
 
     public GamePanel(final int gameIndex) {
@@ -26,9 +26,7 @@ public class GamePanel extends Panel {
         this.gameIndex = gameIndex;
         regularPos = new Point(leftMargin, 10 + topMargin * gameIndex);
         gameLabel = new WrappedLabel(GameList.nameOf(gameIndex));
-
-        final boolean isEven = gameIndex % 2 == 0;
-        backgroundColor = new Color(isEven ? 15583569 : 41136);
+        backgroundColor = getBackgroundColor(true);
 
         setPosition(regularPos);
         add(gameLabel);
@@ -38,9 +36,30 @@ public class GamePanel extends Panel {
         }));
     }
 
+    public void setTransparent() {
+        backgroundColor = getBackgroundColor(false);
+    }
+
     public void update() {
         setPosition(regularPos);
+        backgroundColor = getBackgroundColor(true);
         gameLabel.setText(GameList.nameOf(gameIndex));
+    }
+
+    private Color getBackgroundColor(final boolean opaque) {
+        final boolean isEven = gameIndex % 2 == 0;
+
+        if (isEven)
+            if (opaque)
+                return new Color(33, 222, 173, 100);
+            else
+                return new Color(33, 222, 173, 65);
+
+        else
+            if (opaque)
+                return new Color(225, 52, 30, 100);
+            else
+                return new Color(225, 52, 30, 65);
     }
 
     public void setPosition(final int x, final int y) {
