@@ -1,11 +1,11 @@
 package ranker.gui.scenes;
 
 import ranker.data.GameList;
-import ranker.gui.basic.Panel;
-import ranker.gui.basic.Scene;
 import ranker.gui.GamePanel;
 import ranker.gui.SceneID;
 import ranker.gui.Window;
+import ranker.gui.basic.Panel;
+import ranker.gui.basic.Scene;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ public class Rank extends Scene implements MouseWheelListener, MouseListener, Mo
     private int initialIndex;
 
     /// The panel which contains all GamePanels, and is moved by scrolling.
-    private Panel innerPanel = new Panel(false);
+    private final Panel innerPanel = new Panel(false);
 
     public Rank() {
         JButton outputButton = new JButton("Output");

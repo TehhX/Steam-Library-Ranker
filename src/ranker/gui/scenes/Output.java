@@ -1,59 +1,42 @@
 package ranker.gui.scenes;
 
 import ranker.data.GameList;
-import ranker.gui.basic.Scene;
 import ranker.gui.SceneID;
 import ranker.gui.Window;
+import ranker.gui.basic.Scene;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Output extends Scene implements ActionListener {
-    private JButton rankButton = new JButton("Rank");
-
-    private JButton printPairedButton = new JButton("Print Paired");
-    private JButton printPlainButton = new JButton("Print Plain");
-    private JButton printHTMLButton = new JButton("Print HTML");
-    private JButton printSteamButton = new JButton("Print Steam Formatted");
-
+public class Output extends Scene {
     public Output() {
+    // Rank button and setup
+        JButton rankButton = new JButton("Rank");
         rankButton.setBounds(100, 100, 140, 30);
-        rankButton.addActionListener(this);
+        rankButton.addActionListener(e -> Window.changeScene(SceneID.Rank));
         add(rankButton);
 
+    // Paired printing button and setup
+        JButton printPairedButton = new JButton("Print Paired");
         printPairedButton.setBounds(100, 140, 140, 30);
-        printPairedButton.addActionListener(this);
+        printPairedButton.addActionListener(e -> System.out.println(GameList.getListPaired()));
         add(printPairedButton);
 
+    // Plain printing button and setup
+        JButton printPlainButton = new JButton("Print Plain");
         printPlainButton.setBounds(100, 180, 140, 30);
-        printPlainButton.addActionListener(this);
+        printPlainButton.addActionListener(e -> System.out.println(GameList.getListPlain()));
         add(printPlainButton);
 
+    // HTML printing button and setup
+        JButton printHTMLButton = new JButton("Print HTML");
         printHTMLButton.setBounds(100, 220, 140, 30);
-        printHTMLButton.addActionListener(this);
+        printHTMLButton.addActionListener(e -> System.out.println(GameList.getListHTML()));
         add(printHTMLButton);
 
+    // Steam formatted printing button and setup
+        JButton printSteamButton = new JButton("Print Steam Formatted");
         printSteamButton.setBounds(100, 260, 140, 30);
-        printSteamButton.addActionListener(this);
+        printSteamButton.addActionListener(e -> System.out.println(GameList.getListSteam()));
         add(printSteamButton);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == rankButton)
-            Window.changeScene(SceneID.Rank);
-
-        else if (ae.getSource() == printPairedButton)
-            System.out.println(GameList.getListPaired());
-
-        else if (ae.getSource() == printPlainButton)
-            System.out.println(GameList.getListPlain());
-
-        else if (ae.getSource() == printHTMLButton)
-            System.out.println(GameList.getListHTML());
-
-        else if (ae.getSource() == printSteamButton)
-            System.out.println(GameList.getListSteam());
     }
 }

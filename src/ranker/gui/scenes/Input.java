@@ -1,9 +1,9 @@
 package ranker.gui.scenes;
 
 import ranker.data.Intake;
-import ranker.gui.basic.Scene;
 import ranker.gui.SceneID;
 import ranker.gui.Window;
+import ranker.gui.basic.Scene;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +42,9 @@ public class Input extends Scene implements ActionListener, SceneChangeActions {
         // Use my own SteamID if debug is true.
         final boolean debug = true;
 
+        @SuppressWarnings("ConstantValue")
         final String id = (debug ? "76561198284660364" : inputField.getText().trim());
+
         Window.changeScene(SceneID.Loading);
         SwingUtilities.invokeLater(() -> runIntake(id));
     }

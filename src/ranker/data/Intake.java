@@ -1,9 +1,9 @@
 package ranker.data;
 
-import ranker.gui.Window;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import ranker.gui.Window;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;

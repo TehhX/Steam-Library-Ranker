@@ -25,14 +25,12 @@ public class GamePanel extends Panel {
 
         this.gameIndex = gameIndex;
         regularPos = new Point(leftMargin, 10 + topMargin * gameIndex);
-
-        setPosition(regularPos);
-
         gameLabel = new WrappedLabel(GameList.nameOf(gameIndex));
 
         final boolean isEven = gameIndex % 2 == 0;
         backgroundColor = new Color(isEven ? 15583569 : 41136);
 
+        setPosition(regularPos);
         add(gameLabel);
         add(new Panel(false, g -> {
             g.setColor(backgroundColor);
@@ -41,11 +39,8 @@ public class GamePanel extends Panel {
     }
 
     public void update() {
-        final String normName = GameList.nameOf(gameIndex);
-        final String wrapName = WrappedLabel.getWrappedText(normName);
-
         setPosition(regularPos);
-        gameLabel.setText(wrapName);
+        gameLabel.setText(GameList.nameOf(gameIndex));
     }
 
     public void setPosition(final int x, final int y) {

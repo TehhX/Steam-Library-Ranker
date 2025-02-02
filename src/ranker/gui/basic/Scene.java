@@ -1,7 +1,7 @@
 package ranker.gui.basic;
 
-import ranker.gui.scenes.SceneChangeActions;
 import ranker.gui.Window;
+import ranker.gui.scenes.SceneChangeActions;
 
 import java.awt.*;
 
